@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- View Hợp Đồng & Bảo Hiểm -->
+        <record id="view_hop_dong_bao_hiem_tree" model="ir.ui.view">
+            <field name="name">hop_dong_bao_hiem_tree</field>
+            <field name="model">hop_dong_bao_hiem</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="vehicle_id"/>
+                    <field name="contract_start"/>
+                    <field name="contract_end"/>
+                    <field name="rental_company"/>
+                    <field name="rental_price"/>
+                    <field name="insurance_company"/>
+                    <field name="insurance_package"/>
+                    <field name="insurance_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hop_dong_bao_hiem_form" model="ir.ui.view">
+            <field name="name">hop_dong_bao_hiem_form</field>
+            <field name="model">hop_dong_bao_hiem</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="vehicle_id"/>
+                            <field name="contract_start"/>
+                            <field name="contract_end"/>
+                            <field name="rental_company"/>
+                            <field name="rental_price"/>
+                            <field name="insurance_company"/>
+                            <field name="insurance_package"/>
+                            <field name="insurance_price"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hop_dong_bao_hiem_search" model="ir.ui.view">
+            <field name="name">hop_dong_bao_hiem_search</field>
+            <field name="model">hop_dong_bao_hiem</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="vehicle_id"/>
+                    <field name="contract_start"/>
+                    <field name="contract_end"/>
+                    <field name="rental_company"/>
+                    <field name="insurance_company"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action Hợp Đồng & Bảo Hiểm -->
+        <record id="action_hop_dong_bao_hiem" model="ir.actions.act_window">
+            <field name="name">Hợp Đồng Và Bảo Hiểm</field>
+            <field name="res_model">hop_dong_bao_hiem</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_hop_dong_bao_hiem_search"/>
+            <field name="help">Thêm, sửa, xóa thông tin hợp đồng Và bảo hiểm</field>
+        </record>
+    </data>
+</odoo>

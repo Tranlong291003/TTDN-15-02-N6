@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <record id="view_vi_pham_tree" model="ir.ui.view">
+            <field name="name">vi_pham_tree</field>
+            <field name="model">vi_pham</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="driver_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="violation_type"/>
+                    <field name="violation_date"/>
+                    <field name="fine_amount"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vi_pham_form" model="ir.ui.view">
+            <field name="name">vi_pham_form</field>
+            <field name="model">vi_pham</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="driver_id"/>
+                            <field name="vehicle_id"/>
+                            <field name="violation_type"/>
+                            <field name="violation_date"/>
+                            <field name="fine_amount"/>
+                            <field name="status"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vi_pham_search" model="ir.ui.view">
+            <field name="name">vi_pham_search</field>
+            <field name="model">vi_pham</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="driver_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="violation_type"/>
+                    <field name="violation_date"/>
+                    <field name="status"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action Vi Phạm -->
+        <record id="action_vi_pham" model="ir.actions.act_window">
+            <field name="name">Vi Phạm</field>
+            <field name="res_model">vi_pham</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_vi_pham_search"/>
+            <field name="help">Thêm, sửa, xóa thông tin vi phạm giao thông</field>
+        </record>
+    </data>
+</odoo>

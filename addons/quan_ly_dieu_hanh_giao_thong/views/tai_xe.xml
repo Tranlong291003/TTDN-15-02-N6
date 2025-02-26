@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <record id="view_tai_xe_tree" model="ir.ui.view">
+            <field name="name">tai_xe_tree</field>
+            <field name="model">tai_xe</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="license_number"/>
+                    <field name="license_issue_date"/>
+                    <field name="license_expiry_date"/>
+                    <field name="experience"/>
+                    <field name="rating"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tai_xe_form" model="ir.ui.view">
+            <field name="name">tai_xe_form</field>
+            <field name="model">tai_xe</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="license_number"/>
+                            <field name="license_issue_date"/>
+                            <field name="license_expiry_date"/>
+                            <field name="experience"/>
+                            <field name="rating"/>
+                            <field name="image"/>
+                            <field name="vehicle_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tai_xe_search" model="ir.ui.view">
+            <field name="name">tai_xe_search</field>
+            <field name="model">tai_xe</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="license_number"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action Tài Xế -->
+        <record id="action_tai_xe" model="ir.actions.act_window">
+            <field name="name">Tài Xế</field>
+            <field name="res_model">tai_xe</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_tai_xe_search"/>
+            <field name="help">Thêm, sửa, xóa thông tin tài xế</field>
+        </record>
+    </data>
+</odoo>

@@ -14,6 +14,13 @@
     'data': [
         'security/ir.model.access.csv',
         'views/phuong_tien.xml',
+        'views/bao_tri.xml',
+        'views/lich_trinh.xml',
+        'views/nhien_lieu.xml',
+        'views/tai_xe.xml',
+        'views/vi_pham.xml',
+        'views/hop_dong_bao_hiem.xml',
+
         'views/menu.xml',
     ],
     'demo': [

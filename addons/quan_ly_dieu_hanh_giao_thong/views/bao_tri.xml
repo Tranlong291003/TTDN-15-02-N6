@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- View Bảo Trì -->
+        <record id="view_bao_tri_tree" model="ir.ui.view">
+            <field name="name">bao_tri_tree</field>
+            <field name="model">bao_tri</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="vehicle_id"/>
+                    <field name="maintenance_date"/>
+                    <field name="maintenance_type"/>
+                    <field name="service_provider"/>
+                    <field name="cost"/>
+                    <field name="next_maintenance"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_bao_tri_form" model="ir.ui.view">
+            <field name="name">bao_tri_form</field>
+            <field name="model">bao_tri</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="vehicle_id"/>
+                            <field name="maintenance_date"/>
+                            <field name="maintenance_type"/>
+                            <field name="details"/>
+                            <field name="service_provider"/>
+                            <field name="cost"/>
+                            <field name="next_maintenance"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_bao_tri_search" model="ir.ui.view">
+            <field name="name">bao_tri_search</field>
+            <field name="model">bao_tri</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="vehicle_id"/>
+                    <field name="maintenance_date"/>
+                    <field name="maintenance_type"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action Bảo Trì -->
+        <record id="action_bao_tri" model="ir.actions.act_window">
+            <field name="name">Bảo Trì</field>
+            <field name="res_model">bao_tri</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_bao_tri_search"/>
+            <field name="help">Thêm, sửa, xóa thông tin bảo trì</field>
+        </record>
+    </data>
+</odoo>
