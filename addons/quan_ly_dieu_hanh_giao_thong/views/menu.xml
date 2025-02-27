@@ -51,5 +51,12 @@
             action="action_vi_pham"
         />
 
+        <menuitem name="Hãng Sản Xuất" 
+            id="menu_hang_san_xuat" 
+            parent="menu_root" 
+            sequence="8"
+            action="action_hang_san_xuat"
+        />
+
     </data>
 </odoo>

@@ -6,3 +6,4 @@ access_bao_tri,Access Bao Tri,model_bao_tri,base.group_user,1,1,1,1
 access_nhien_lieu,Access Nhien Lieu,model_nhien_lieu,base.group_user,1,1,1,1
 access_vi_pham,Access Vi Pham,model_vi_pham,base.group_user,1,1,1,1
 access_hop_dong_bao_hiem,Access Hop Dong Bao Hiem,model_hop_dong_bao_hiem,base.group_user,1,1,1,1
+access_hang_san_xuat,Access Hang San Xuat,model_hang_san_xuat,base.group_user,1,1,1,1

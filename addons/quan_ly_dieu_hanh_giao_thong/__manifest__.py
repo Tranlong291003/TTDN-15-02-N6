@@ -20,6 +20,7 @@
         'views/tai_xe.xml',
         'views/vi_pham.xml',
         'views/hop_dong_bao_hiem.xml',
+        'views/hang_san_xuat.xml',
 
         'views/menu.xml',
     ],

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- View Hãng Sản Xuất -->
+        <record id="view_hang_san_xuat_tree" model="ir.ui.view">
+            <field name="name">hang_san_xuat_tree</field>
+            <field name="model">hang_san_xuat</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="country"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hang_san_xuat_form" model="ir.ui.view">
+            <field name="name">hang_san_xuat_form</field>
+            <field name="model">hang_san_xuat</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="country"/>
+                            <field name="logo" widget="image"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hang_san_xuat_search" model="ir.ui.view">
+            <field name="name">hang_san_xuat_search</field>
+            <field name="model">hang_san_xuat</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="country"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action Hãng Sản Xuất -->
+        <record id="action_hang_san_xuat" model="ir.actions.act_window">
+            <field name="name">Hãng Sản Xuất</field>
+            <field name="res_model">hang_san_xuat</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_hang_san_xuat_search"/>
+            <field name="help">Thêm, sửa, xóa thông tin hãng sản xuất</field>
+        </record>
+    </data>
+</odoo>

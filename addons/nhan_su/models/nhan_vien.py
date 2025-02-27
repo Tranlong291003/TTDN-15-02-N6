@@ -12,6 +12,7 @@ class NhanVien(models.Model):
     email = fields.Char("Email")
     so_dien_thoai = fields.Char("Số điện thoại")
     tuoi = fields.Integer(string="Tuổi", compute="_compute_tuoi", store=True)
+    so_luong = fields.Integer(string="Số lượng", compute="_compute_so_luong", store=True)
 
     # Quan hệ One2many với bảng lịch sử làm việc
     history_ids = fields.One2many('lich_su_lam_viec', 'nhan_vien_id', string="Lịch sử làm việc")
@@ -31,3 +32,10 @@ class NhanVien(models.Model):
                 rec.tuoi = today.year - rec.ngay_sinh.year - ((today.month, today.day) < (rec.ngay_sinh.month, rec.ngay_sinh.day))
             else:
                 rec.tuoi = 0
+
+    @api.depends('tuoi')
+    def _compute_so_luong(self):
+        """ Đếm số lượng nhân viên có tuổi lớn hơn 18 """
+        for rec in self:
+            rec.so_luong = self.env['nhan_vien'].search_count([('tuoi', '>', 18)])
+        
