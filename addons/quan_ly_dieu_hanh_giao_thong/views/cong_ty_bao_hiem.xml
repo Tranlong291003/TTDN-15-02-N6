@@ -1,0 +1,63 @@
+<odoo>
+  <data>
+    <!-- Form View for cong_ty_bao_hiem -->
+    <record id="view_cong_ty_bao_hiem_form" model="ir.ui.view">
+      <field name="name">cong_ty_bao_hiem_form</field>
+      <field name="model">cong_ty_bao_hiem</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <!-- Tiêu đề -->
+            <h1 class="oe_title" style="color: #3498db;">🏦 Quản Lý Công Ty &amp; Gói Bảo Hiểm</h1>
+            <!-- Nhóm thông tin -->
+            <group col="2">
+              <!-- Nhóm Thông Tin Công Ty -->
+              <group string="🏢 Thông Tin Công Ty">
+                <field name="name" string="🏦 Tên Công Ty"/>
+                <field name="package_type" string="📜 Gói Bảo Hiểm"/>
+                <field name="insurance_category" string="🔖 Loại bảo hiểm"/>
+              </group>
+              <group string="🏢 Thông Tin bảo hiểm">
+                <field name="full_name" readonly="1" string="📄 Gói Bảo Hiểm"/>
+                <field name="insurance_price" widget="monetary" options="{'currency_field': 'currency_id'}" string="💰 Số Tiền Bảo Hiểm"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- Tree View for cong_ty_bao_hiem -->
+    <record id="view_cong_ty_bao_hiem_tree" model="ir.ui.view">
+      <field name="name">cong_ty_bao_hiem_tree</field>
+      <field name="model">cong_ty_bao_hiem</field>
+      <field name="arch" type="xml">
+        <tree decoration-success="insurance_price &gt;= 10000000"
+              decoration-danger="insurance_price &lt; 3000000">
+          <field name="name" string="🏦 Công Ty"/>
+          <field name="full_name" string="📜 Gói Bảo Hiểm"/>
+          <field name="insurance_price" string="💰 Số Tiền Bảo Hiểm" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Search View for cong_ty_bao_hiem -->
+    <record model="ir.ui.view" id="cong_ty_bao_hiem_search">
+      <field name="model">cong_ty_bao_hiem</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="full_name"/>
+          <field name="insurance_price"/>
+          <filter name="high_price" string="💰 Giá Cao" domain="[('insurance_price', '&gt;=', 10000000)]"/>
+          <filter name="low_price" string="⚠️ Giá Thấp" domain="[('insurance_price', '&lt;', 3000000)]"/>
+        </search>
+      </field>
+    </record>
+    <!-- Action for cong_ty_bao_hiem -->
+    <record id="action_cong_ty_bao_hiem" model="ir.actions.act_window">
+      <field name="name">🏦 Công Ty Bảo Hiểm</field>
+      <field name="res_model">cong_ty_bao_hiem</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="cong_ty_bao_hiem_search"/>
+    </record>
+  </data>
+</odoo>

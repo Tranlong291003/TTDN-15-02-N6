@@ -21,6 +21,7 @@
         'views/vi_pham.xml',
         'views/hop_dong_bao_hiem.xml',
         'views/hang_san_xuat.xml',
+        'views/cong_ty_bao_hiem.xml',
 
         'views/menu.xml',
     ],

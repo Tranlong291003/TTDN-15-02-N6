@@ -9,3 +9,5 @@ from . import nhien_lieu
 from . import vi_pham
 from . import hop_dong_bao_hiem
 from . import hang_san_xuat
+from . import cong_ty_bao_hiem
+

@@ -1,66 +1,68 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!-- View Hợp Đồng & Bảo Hiểm -->
-        <record id="view_hop_dong_bao_hiem_tree" model="ir.ui.view">
-            <field name="name">hop_dong_bao_hiem_tree</field>
-            <field name="model">hop_dong_bao_hiem</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="vehicle_id"/>
-                    <field name="contract_start"/>
-                    <field name="contract_end"/>
-                    <field name="rental_company"/>
-                    <field name="rental_price"/>
-                    <field name="insurance_company"/>
-                    <field name="insurance_package"/>
-                    <field name="insurance_price"/>
-                </tree>
-            </field>
-        </record>
-
+        <!-- Form View for hop_dong_bao_hiem -->
         <record id="view_hop_dong_bao_hiem_form" model="ir.ui.view">
             <field name="name">hop_dong_bao_hiem_form</field>
             <field name="model">hop_dong_bao_hiem</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group>
-                            <field name="vehicle_id"/>
-                            <field name="contract_start"/>
-                            <field name="contract_end"/>
-                            <field name="rental_company"/>
-                            <field name="rental_price"/>
-                            <field name="insurance_company"/>
-                            <field name="insurance_package"/>
-                            <field name="insurance_price"/>
+                        <h1 class="oe_title" style="color: #3498db;">📑 Quản Lý Hợp Đồng Bảo Hiểm</h1>
+                        <!-- Nhóm thông tin -->
+                        <group col="2">
+                            <!-- Nhóm thông tin hợp đồng -->
+                            <group string="📜 Thông Tin Hợp Đồng">
+                                <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                                <field name="insurance_package_id" string="📜 Gói Bảo Hiểm"/>
+                                <field name="insurance_price" string="💰 Số Tiền Bảo Hiểm"/>
+                            </group>
+                            <!-- Nhóm thời gian hợp đồng -->
+                            <group string="📅 Thời Gian Hợp Đồng">
+                                <field name="contract_start" string="📅 Ngày Bắt Đầu"/>
+                                <field name="contract_end" string="📅 Ngày Kết Thúc"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
+        <!-- Tree View for hop_dong_bao_hiem -->
+        <record id="view_hop_dong_bao_hiem_tree" model="ir.ui.view">
+            <field name="name">hop_dong_bao_hiem_tree</field>
+            <field name="model">hop_dong_bao_hiem</field>
+            <field name="arch" type="xml">
+                <tree decoration-success="insurance_price &gt;= 10000000"
+              decoration-danger="insurance_price &lt; 3000000">
+                    <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                    <field name="insurance_package_id" string="📜 Gói Bảo Hiểm"/>
+                    <field name="insurance_price" string="💰 Số Tiền Bảo Hiểm" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="contract_start" string="📅 Ngày Bắt Đầu"/>
+                    <field name="contract_end" string="📅 Ngày Kết Thúc"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Search View for hop_dong_bao_hiem -->
         <record id="view_hop_dong_bao_hiem_search" model="ir.ui.view">
             <field name="name">hop_dong_bao_hiem_search</field>
             <field name="model">hop_dong_bao_hiem</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="vehicle_id"/>
-                    <field name="contract_start"/>
-                    <field name="contract_end"/>
-                    <field name="rental_company"/>
-                    <field name="insurance_company"/>
+                    <field name="insurance_package_id"/>
+                    <field name="insurance_price"/>
+                    <filter name="high_price" string="💰 Giá Cao" domain="[('insurance_price', '&gt;=', 10000000)]"/>
+                    <filter name="low_price" string="⚠️ Giá Thấp" domain="[('insurance_price', '&lt;', 3000000)]"/>
                 </search>
             </field>
         </record>
-
-        <!-- Action Hợp Đồng & Bảo Hiểm -->
+        <!-- Action for hop_dong_bao_hiem -->
         <record id="action_hop_dong_bao_hiem" model="ir.actions.act_window">
-            <field name="name">Hợp Đồng Và Bảo Hiểm</field>
+            <field name="name">📑 Hợp Đồng Bảo Hiểm</field>
             <field name="res_model">hop_dong_bao_hiem</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_hop_dong_bao_hiem_search"/>
-            <field name="help">Thêm, sửa, xóa thông tin hợp đồng Và bảo hiểm</field>
         </record>
+        <!-- Menu -->
+        <menuitem id="menu_hop_dong_bao_hiem" name="📑 Hợp Đồng Bảo Hiểm" action="action_hop_dong_bao_hiem" parent="base.menu_management"/>
     </data>
 </odoo>
