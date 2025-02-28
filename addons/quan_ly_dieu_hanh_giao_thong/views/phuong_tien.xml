@@ -27,6 +27,43 @@
                                 <field name="image" widget="image" class="oe_center" style="width: 200px; height: auto;"/>
                             </group>
                         </group>
+                        <notebook>
+                            <!-- Tab Bảo Trì -->
+                            <page string="🛠️ Bảo Trì">
+                                <field name="bao_tri_ids">
+                                    <tree editable="bottom">
+                                        <field name="maintenance_date" string="📅 Ngày Bảo Trì"/>
+                                        <field name="maintenance_type" string="📑 Loại Bảo Trì"/>
+                                        <field name="service_provider" string="🏢 Nhà Cung Cấp"/>
+                                        <field name="cost" string="💰 Chi Phí"/>
+                                        <field name="next_maintenance" string="📅 Lịch Bảo Trì Tiếp Theo"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="📅 Lịch Trình">
+                                <field name="lich_trinh_ids">
+                                    <tree editable="bottom">
+                                        <field name="start_time" string="⏰ Xuất Phát"/>
+                                        <field name="end_time" string="🏁 Kết Thúc"/>
+                                        <field name="start_location" string="📍 Điểm Xuất Phát"/>
+                                        <field name="end_location" string="📌 Đích Đến"/>
+                                        <field name="driver_id" string="👨‍✈️ Tài Xế"/>
+                                        <field name="status" string="📊 Trạng Thái"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="⛽ Nhiên Liệu">
+                                <field name="nhien_lieu_ids">
+                                    <tree editable="bottom">
+                                        <field name="date" string="📅 Ngày Đổ Nhiên Liệu"/>
+                                        <field name="fuel_liters" string="⛽ Số Lít"/>
+                                        <field name="fuel_price" string="💰 Giá Nhiên Liệu"/>
+                                        <field name="current_km" string="📏 Số Km Hiện Tại"/>
+                                        <field name="fuel_efficiency" string="⚡ Tiêu Hao (lít/km)"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

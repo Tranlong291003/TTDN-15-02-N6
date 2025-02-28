@@ -1,17 +1,18 @@
-from odoo import models, fields, api
+from odoo import models, fields
+
 class LichTrinh(models.Model):
     _name = 'lich_trinh'
     _description = 'Quản lý Lịch Trình'
 
-    vehicle_id = fields.Many2one('phuong_tien', string='Phương tiện', required=True)
-    driver_id = fields.Many2one('tai_xe', string='Tài xế', required=True)
-    start_time = fields.Datetime(string='Thời gian xuất phát', required=True)
-    end_time = fields.Datetime(string='Thời gian về')
-    start_location = fields.Char(string='Địa điểm xuất phát', required=True)
-    end_location = fields.Char(string='Đích đến', required=True)
+    vehicle_id = fields.Many2one('phuong_tien', string='🚗 Phương Tiện', required=True)
+    driver_id = fields.Many2one('tai_xe', string='👨‍✈️ Tài Xế', required=True)
+    start_time = fields.Datetime(string='⏰ Thời Gian Xuất Phát', required=True)
+    end_time = fields.Datetime(string='🏁 Thời Gian Về')
+    start_location = fields.Char(string='📍 Địa Điểm Xuất Phát', required=True)
+    end_location = fields.Char(string='📌 Đích Đến', required=True)
     status = fields.Selection([
-        ('pending', 'Chưa bắt đầu'),
-        ('in_progress', 'Đang thực hiện'),
-        ('completed', 'Đã hoàn thành')
-    ], string='Trạng thái', default='pending')
-    notes = fields.Text(string='Ghi chú hành trình')
+        ('pending', '⏳ Chưa Bắt Đầu'),
+        ('in_progress', '🚗 Đang Thực Hiện'),
+        ('completed', '✅ Đã Hoàn Thành')
+    ], string='📊 Trạng Thái', default='pending')
+    notes = fields.Text(string='📝 Ghi Chú Hành Trình')
