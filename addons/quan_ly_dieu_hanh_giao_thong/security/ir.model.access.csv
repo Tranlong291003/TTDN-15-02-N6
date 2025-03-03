@@ -8,3 +8,5 @@ access_vi_pham,Access Vi Pham,model_vi_pham,base.group_user,1,1,1,1
 access_hop_dong_bao_hiem,Access Hop Dong Bao Hiem,model_hop_dong_bao_hiem,base.group_user,1,1,1,1
 access_hang_san_xuat,Access Hang San Xuat,model_hang_san_xuat,base.group_user,1,1,1,1
 access_cong_ty_bao_hiem,Access Cong Ty Bao Hiem,model_cong_ty_bao_hiem,base.group_user,1,1,1,1
+access_nha_cung_cap_bao_tri,Access Nha Cung Cap Bao Tri,model_nha_cung_cap_bao_tri,base.group_user,1,1,1,1
+

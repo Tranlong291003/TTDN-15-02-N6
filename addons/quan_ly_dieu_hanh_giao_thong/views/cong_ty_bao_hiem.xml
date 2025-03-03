@@ -13,13 +13,13 @@
             <group col="2">
               <!-- Nhóm Thông Tin Công Ty -->
               <group string="🏢 Thông Tin Công Ty">
-                <field name="name" string="🏦 Tên Công Ty"/>
-                <field name="package_type" string="📜 Gói Bảo Hiểm"/>
-                <field name="insurance_category" string="🔖 Loại bảo hiểm"/>
+                <field name="name"/>
+                <field name="package_type" />
+                <field name="insurance_category" />
               </group>
               <group string="🏢 Thông Tin bảo hiểm">
-                <field name="full_name" readonly="1" string="📄 Gói Bảo Hiểm"/>
-                <field name="insurance_price" widget="monetary" options="{'currency_field': 'currency_id'}" string="💰 Số Tiền Bảo Hiểm"/>
+                <field name="full_name" readonly="1"/>
+                <field name="insurance_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
               </group>
             </group>
           </sheet>
@@ -31,11 +31,10 @@
       <field name="name">cong_ty_bao_hiem_tree</field>
       <field name="model">cong_ty_bao_hiem</field>
       <field name="arch" type="xml">
-        <tree decoration-success="insurance_price &gt;= 10000000"
-              decoration-danger="insurance_price &lt; 3000000">
-          <field name="name" string="🏦 Công Ty"/>
-          <field name="full_name" string="📜 Gói Bảo Hiểm"/>
-          <field name="insurance_price" string="💰 Số Tiền Bảo Hiểm" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+        <tree decoration-success="insurance_price &gt;= 10000000" decoration-danger="insurance_price &lt; 3000000">
+          <field name="name"/>
+          <field name="full_name" />
+          <field name="insurance_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
         </tree>
       </field>
     </record>
@@ -47,8 +46,8 @@
           <field name="name"/>
           <field name="full_name"/>
           <field name="insurance_price"/>
-          <filter name="high_price" string="💰 Giá Cao" domain="[('insurance_price', '&gt;=', 10000000)]"/>
-          <filter name="low_price" string="⚠️ Giá Thấp" domain="[('insurance_price', '&lt;', 3000000)]"/>
+          <filter name="high_price" domain="[('insurance_price', '&gt;=', 10000000)]"/>
+          <filter name="low_price" domain="[('insurance_price', '&lt;', 3000000)]"/>
         </search>
       </field>
     </record>

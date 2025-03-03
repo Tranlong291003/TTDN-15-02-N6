@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!-- View Hãng Sản Xuất -->
+        <!-- Tree View: Danh sách Hãng Sản Xuất -->
         <record id="view_hang_san_xuat_tree" model="ir.ui.view">
             <field name="name">hang_san_xuat_tree</field>
             <field name="model">hang_san_xuat</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="country"/>
-                    <field name="description"/>
+                    <field name="name" string="🏭 Tên Hãng"/>
+                    <field name="country" string="🌍 Quốc Gia"/>
                 </tree>
             </field>
         </record>
 
+        <!-- Form View: Chi tiết Hãng Sản Xuất -->
         <record id="view_hang_san_xuat_form" model="ir.ui.view">
             <field name="name">hang_san_xuat_form</field>
             <field name="model">hang_san_xuat</field>
@@ -21,34 +21,53 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="name"/>
-                            <field name="country"/>
-                            <field name="logo" widget="image"/>
-                            <field name="description"/>
+                            <group>
+                                <field name="name" string="🏭 Hãng Sản Xuất"/>
+                                <field name="country" string="🌍 Quốc Gia"/>
+                            </group>
+                            <group>
+                                <field name="logo" widget="image" string="📸 Logo"/>
+                            </group>
                         </group>
+
+                        <!-- Tabs (Notebook) -->
+                        <notebook>
+                            <!-- Tab: Danh sách phương tiện -->
+                            <page string="🚗 Phương Tiện">
+                                <field name="phuong_tien_ids">
+                                    <tree editable="bottom">
+                                        <field name="name" string="🚘 Tên Phương Tiện"/>
+                                        <field name="license_plate" string="🔖 Biển Số"/>
+                                        <field name="vehicle_type" string="🚗 Loại"/>
+                                        <field name="status" string="⚙️ Trạng Thái"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
 
+        <!-- Search View -->
         <record id="view_hang_san_xuat_search" model="ir.ui.view">
             <field name="name">hang_san_xuat_search</field>
             <field name="model">hang_san_xuat</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="name"/>
-                    <field name="country"/>
+                    <field name="name" string="🏭 Tên Hãng"/>
+                    <field name="country" string="🌍 Quốc Gia"/>
                 </search>
             </field>
         </record>
 
-        <!-- Action Hãng Sản Xuất -->
+        <!-- Action -->
         <record id="action_hang_san_xuat" model="ir.actions.act_window">
-            <field name="name">Hãng Sản Xuất</field>
+            <field name="name">🏭 Hãng Sản Xuất</field>
             <field name="res_model">hang_san_xuat</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_hang_san_xuat_search"/>
-            <field name="help">Thêm, sửa, xóa thông tin hãng sản xuất</field>
+            <field name="help">🔹 Quản lý danh sách hãng sản xuất phương tiện.</field>
         </record>
     </data>
 </odoo>

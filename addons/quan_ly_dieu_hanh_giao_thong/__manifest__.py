@@ -22,6 +22,8 @@
         'views/hop_dong_bao_hiem.xml',
         'views/hang_san_xuat.xml',
         'views/cong_ty_bao_hiem.xml',
+        'views/nha_cung_cap_bao_tri.xml',  # Đảm bảo file này được load
+
 
         'views/menu.xml',
     ],

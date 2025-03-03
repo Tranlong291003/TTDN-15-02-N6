@@ -7,16 +7,17 @@
             <field name="model">bao_tri</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="maintenance_id"/>
                     <field name="vehicle_id"/>
                     <field name="maintenance_date"/>
                     <field name="maintenance_type"/>
-                    <field name="service_provider"/>
-                    <field name="cost"/>
+                    <field name="service_provider_id"/>
                     <field name="next_maintenance"/>
+                    <field name="cost"/>
+
                 </tree>
             </field>
         </record>
-
         <record id="view_bao_tri_form" model="ir.ui.view">
             <field name="name">bao_tri_form</field>
             <field name="model">bao_tri</field>
@@ -24,19 +25,20 @@
                 <form>
                     <sheet>
                         <group>
+                            <field name="maintenance_id"/>
                             <field name="vehicle_id"/>
                             <field name="maintenance_date"/>
                             <field name="maintenance_type"/>
                             <field name="details"/>
-                            <field name="service_provider"/>
-                            <field name="cost"/>
+                            <field name="service_provider_id"/>
                             <field name="next_maintenance"/>
+                            <field name="cost"/>
+
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
         <record id="view_bao_tri_search" model="ir.ui.view">
             <field name="name">bao_tri_search</field>
             <field name="model">bao_tri</field>
@@ -48,7 +50,6 @@
                 </search>
             </field>
         </record>
-
         <!-- Action Bảo Trì -->
         <record id="action_bao_tri" model="ir.actions.act_window">
             <field name="name">Bảo Trì</field>

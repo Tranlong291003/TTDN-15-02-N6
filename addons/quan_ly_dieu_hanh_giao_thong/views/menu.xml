@@ -3,21 +3,30 @@
     <data>
         <!-- Menu gốc -->
         <menuitem id="menu_root" name="QLDHGT" sequence="0"/>
+
         <!-- Quản lý phương tiện -->
         <menuitem id="menu_quan_ly_phuong_tien" name="Quản lý phương tiện" parent="menu_root" sequence="1"/>
         <menuitem id="menu_phuong_tien" name="Phương Tiện" parent="menu_quan_ly_phuong_tien" sequence="1" action="action_phuong_tien"/>
         <menuitem id="menu_hang_san_xuat" name="Đơn vị sản xuất" parent="menu_quan_ly_phuong_tien" sequence="2" action="action_hang_san_xuat"/>
+
         <!-- Quản lý chi phí vận hành -->
         <menuitem id="menu_quan_ly_chi_phi_van_hanh" name="Quản lý chi phí vận hành" parent="menu_root" sequence="2"/>
         <!-- Danh mục rẽ nhánh ngang của chi phí vận hành -->
         <menuitem id="menu_bao_tri" name="Hoá đơn bảo trì" parent="menu_quan_ly_chi_phi_van_hanh" sequence="1" action="action_bao_tri"/>
-        <menuitem id="menu_hop_dong_bao_hiem" name="Hoá đơn bảo hiểm" parent="menu_quan_ly_chi_phi_van_hanh" sequence="2"/>
-        <menuitem id="menu_cong_ty_bao_hiem" name="Đơn vị bảo hiểm" parent="menu_hop_dong_bao_hiem" sequence="1" action="action_cong_ty_bao_hiem"/>
+        <menuitem id="menu_hop_dong_bao_hiem" name="Hợp đồng bảo hiểm" parent="menu_quan_ly_chi_phi_van_hanh" sequence="2" action="action_hop_dong_bao_hiem"/>
         <menuitem id="menu_nhien_lieu" name="Hoá đơn nhiên liệu" parent="menu_quan_ly_chi_phi_van_hanh" sequence="3" action="action_nhien_lieu"/>
         <menuitem id="menu_vi_pham" name="Hoá đơn vi phạm" parent="menu_quan_ly_chi_phi_van_hanh" sequence="4" action="action_vi_pham"/>
+
         <!-- Lịch trình -->
         <menuitem id="menu_lich_trinh" name="Quản lý lịch trình" parent="menu_root" sequence="3" action="action_lich_trinh"/>
+
         <!-- Quản lý tài xế -->
         <menuitem id="menu_tai_xe" name="Quản lý tài xế" parent="menu_root" sequence="4" action="action_tai_xe"/>
+
+        <!-- Quản lý Nhà Cung Cấp-->
+        <menuitem id="menu_quan_ly_ncc" name="Quản lý Nhà Cung Cấp" parent="menu_root" sequence="10"/>
+        <menuitem id="menu_nha_cung_cap_bao_tri" name="Bảo Trì" parent="menu_quan_ly_ncc" sequence="1" action="action_nha_cung_cap_bao_tri"/>
+        <menuitem id="menu_cong_ty_bao_hiem" name="Bảo hiểm" parent="menu_quan_ly_ncc" sequence="1" action="action_cong_ty_bao_hiem"/>
+
     </data>
 </odoo>

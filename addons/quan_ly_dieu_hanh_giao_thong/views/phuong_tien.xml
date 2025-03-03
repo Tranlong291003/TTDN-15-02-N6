@@ -34,7 +34,7 @@
                                     <tree editable="bottom">
                                         <field name="maintenance_date" string="📅 Ngày Bảo Trì"/>
                                         <field name="maintenance_type" string="📑 Loại Bảo Trì"/>
-                                        <field name="service_provider" string="🏢 Nhà Cung Cấp"/>
+                                        <field name="service_provider_id" string="🏢 Nhà Cung Cấp"/>
                                         <field name="cost" string="💰 Chi Phí"/>
                                         <field name="next_maintenance" string="📅 Lịch Bảo Trì Tiếp Theo"/>
                                     </tree>
