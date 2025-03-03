@@ -1,62 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!-- View Bảo Trì -->
+        <!-- Tree View for Bảo Trì -->
         <record id="view_bao_tri_tree" model="ir.ui.view">
             <field name="name">bao_tri_tree</field>
             <field name="model">bao_tri</field>
             <field name="arch" type="xml">
-                <tree>
-                    <field name="maintenance_id"/>
-                    <field name="vehicle_id"/>
-                    <field name="maintenance_date"/>
-                    <field name="maintenance_type"/>
-                    <field name="service_provider_id"/>
-                    <field name="next_maintenance"/>
-                    <field name="cost"/>
-
+                <tree decoration-success="maintenance_type == 'repair'" 
+                      decoration-danger="maintenance_type == 'replacement'">
+                    <field name="maintenance_id" string="🆔 Mã Bảo Trì"/>
+                    <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                    <field name="maintenance_date" string="📅 Ngày Bảo Trì"/>
+                    <field name="maintenance_type" string="📑 Loại Bảo Trì" widget="statusbar" options="{'clickable': '1'}"/>
+                    <field name="service_provider_id" string="🏢 Nhà Cung Cấp"/>
+                    <field name="cost" string="💰 Chi Phí"/>
+                    <field name="next_maintenance" string="📅 Bảo Trì Tiếp Theo"/>
                 </tree>
             </field>
         </record>
+        <!-- Form View for Bảo Trì -->
         <record id="view_bao_tri_form" model="ir.ui.view">
             <field name="name">bao_tri_form</field>
             <field name="model">bao_tri</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group>
-                            <field name="maintenance_id"/>
-                            <field name="vehicle_id"/>
-                            <field name="maintenance_date"/>
-                            <field name="maintenance_type"/>
-                            <field name="details"/>
-                            <field name="service_provider_id"/>
-                            <field name="next_maintenance"/>
-                            <field name="cost"/>
-
+                        <h1 class="oe_title" style="color: #3498db;">🛠️ Quản Lý Bảo Trì</h1>
+                        <group col="2" string="Thông tin bảo trì">
+                            <group>
+                                <field name="maintenance_id" readonly="1"/>
+                                <field name="vehicle_id"/>
+                                <field name="maintenance_date"/>
+                                <field name="maintenance_type" widget="statusbar" options="{'clickable': '1'}"/>
+                            </group>
+                            <group>
+                                <field name="service_provider_id"/>
+                                <field name="cost"/>
+                                <field name="next_maintenance" readonly="1"/>
+                            </group>
                         </group>
+                        <group col="2">
+                            <group string="Chi tiết bảo trì">
+                                <field name="details" widget="text"/>
+                            </group>
+                        </group>
+                        <!-- Notebook chứa thông tin phương tiện -->
+                        <notebook>
+                            <page string="🚗 Phương Tiện">
+                                <group col="2">
+                                    <group>
+                                        <field name="vehicle_name" string="🚗 Tên Phương Tiện" readonly="1"/>
+                                        <field name="vehicle_license_plate" string="🏷 Biển Số" readonly="1"/>
+                                        <field name="vehicle_type" string="🚘 Loại Xe" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="vehicle_status" string="📌 Trạng Thái" readonly="1"/>
+                                        <field name="vehicle_manufacturer" string="🏭 Hãng Sản Xuất" readonly="1"/>
+                                        <field name="vehicle_mileage" string="📏 Số Km Đã Đi" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
+        <!-- Search View for Bảo Trì -->
         <record id="view_bao_tri_search" model="ir.ui.view">
             <field name="name">bao_tri_search</field>
             <field name="model">bao_tri</field>
             <field name="arch" type="xml">
                 <search>
+                    <field name="maintenance_id"/>
                     <field name="vehicle_id"/>
                     <field name="maintenance_date"/>
                     <field name="maintenance_type"/>
+                    <field name="service_provider_id"/>
                 </search>
             </field>
         </record>
-        <!-- Action Bảo Trì -->
+        <!-- Action for Bảo Trì -->
         <record id="action_bao_tri" model="ir.actions.act_window">
-            <field name="name">Bảo Trì</field>
+            <field name="name">🛠️ Quản Lý Bảo Trì</field>
             <field name="res_model">bao_tri</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_bao_tri_search"/>
-            <field name="help">Thêm, sửa, xóa thông tin bảo trì</field>
         </record>
     </data>
 </odoo>

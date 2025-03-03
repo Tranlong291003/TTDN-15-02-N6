@@ -31,6 +31,14 @@ class BaoTri(models.Model):
         ('maintenance_id_uniq', 'unique(maintenance_id)', '🆔 Mã Bảo Trì không được trùng! Vui lòng nhập lại.')
     ]
 
+    vehicle_name = fields.Char(related='vehicle_id.name', store=True, string="Tên Phương Tiện")
+    vehicle_license_plate = fields.Char(related='vehicle_id.license_plate', store=True, string="Biển Số")
+    vehicle_type = fields.Selection(related='vehicle_id.vehicle_type', store=True, string="Loại Xe")
+    vehicle_status = fields.Selection(related='vehicle_id.status', store=True, string="Trạng Thái")
+    vehicle_manufacturer = fields.Many2one(related='vehicle_id.manufacturer_id', store=True, string="Hãng Sản Xuất")
+    vehicle_mileage = fields.Float(related='vehicle_id.mileage', store=True, string="Số Km Đã Đi")
+
+
     @api.depends('maintenance_date')
     def _compute_next_maintenance(self):
         """ Tự động tính ngày bảo trì tiếp theo (mặc định sau 6 tháng) """
