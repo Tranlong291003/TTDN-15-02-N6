@@ -13,6 +13,7 @@
             <group col="2">
               <!-- Nhóm Thông Tin Công Ty -->
               <group string="🏢 Thông Tin Công Ty">
+                <field name="insurance_id"/>
                 <field name="name"/>
                 <field name="package_type" />
                 <field name="insurance_category" />
@@ -32,6 +33,7 @@
       <field name="model">cong_ty_bao_hiem</field>
       <field name="arch" type="xml">
         <tree decoration-success="insurance_price &gt;= 10000000" decoration-danger="insurance_price &lt; 3000000">
+          <field name="insurance_id"/>
           <field name="name"/>
           <field name="full_name" />
           <field name="insurance_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>

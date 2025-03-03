@@ -27,7 +27,7 @@ class CongTyBaoHiem(models.Model):
     ], string='📜 Gói Bảo Hiểm', required=True)
 
     full_name = fields.Char(string='📌 Tên Đầy Đủ', compute='_compute_full_name', store=True)
-    insurance_price = fields.Float(string='💰 Giá Trị Gói Bảo Hiểm', digits=(12, 2))
+    insurance_price = fields.Float(string='💰 Giá bảo hiểm', digits=(12, 2))
 
     _sql_constraints = [
         ('insurance_id_uniq', 'unique(insurance_id)', '🆔 Mã Bảo Hiểm không được trùng! Vui lòng nhập lại.')

@@ -1,65 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="view_tai_xe_tree" model="ir.ui.view">
-            <field name="name">tai_xe_tree</field>
-            <field name="model">tai_xe</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="name"/>
-                    <field name="phone"/>
-                    <field name="email"/>
-                    <field name="license_number"/>
-                    <field name="license_issue_date"/>
-                    <field name="license_expiry_date"/>
-                    <field name="experience"/>
-                    <field name="rating"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_tai_xe_form" model="ir.ui.view">
-            <field name="name">tai_xe_form</field>
-            <field name="model">tai_xe</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
+    <record id="view_tai_xe_form" model="ir.ui.view">
+        <field name="name">tai.xe.form</field>
+        <field name="model">tai_xe</field>
+        <field name="arch" type="xml">
+            <form string="🚛 Quản Lý Tài Xế">
+                <sheet>
+                    <group>
                         <group>
-                            <field name="name"/>
-                            <field name="phone"/>
-                            <field name="email"/>
-                            <field name="license_number"/>
-                            <field name="license_issue_date"/>
-                            <field name="license_expiry_date"/>
-                            <field name="experience"/>
-                            <field name="rating"/>
-                            <field name="image"/>
-                            <field name="vehicle_id"/>
+                            <field name="driver_id" readonly="1" string="🆔 Mã Tài Xế"/>
+                            <field name="name" string="👤 Họ Tên"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                        <group>
+                            <field name="phone" string="📞 Số Điện Thoại"/>
+                            <field name="email" string="📧 Email"/>
+                        </group>
+                    </group>
 
-        <record id="view_tai_xe_search" model="ir.ui.view">
-            <field name="name">tai_xe_search</field>
-            <field name="model">tai_xe</field>
-            <field name="arch" type="xml">
-                <search>
-                    <field name="name"/>
-                    <field name="phone"/>
-                    <field name="email"/>
-                    <field name="license_number"/>
-                </search>
-            </field>
-        </record>
+                    <notebook>
+                        <!-- Thông tin bằng lái -->
+                        <page string="🚘 Thông Tin Bằng Lái">
+                            <group>
+                                <field name="license_number" string="🚘 Số Bằng Lái"/>
+                                <field name="license_issue_date" string="📅 Ngày Cấp"/>
+                                <field name="license_expiry_date" string="⏳ Ngày Hết Hạn"/>
+                            </group>
+                        </page>
 
-        <!-- Action Tài Xế -->
-        <record id="action_tai_xe" model="ir.actions.act_window">
-            <field name="name">Tài Xế</field>
-            <field name="res_model">tai_xe</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_tai_xe_search"/>
-            <field name="help">Thêm, sửa, xóa thông tin tài xế</field>
-        </record>
-    </data>
+                        <!-- Kinh nghiệm &; đánh giá -->
+                        <page string="⭐ Kinh Nghiệm &amp; Đánh Giá">
+                            <group>
+                                <field name="experience" string="🏎️ Kinh Nghiệm Lái Xe (Năm)"/>
+                                <field name="rating" string="⭐ Đánh Giá"/>
+                            </group>
+                        </page>
+
+                        <!-- Phương tiện phụ trách -->
+                        <page string="🚗 Phương Tiện Phụ Trách">
+                            <group>
+                                <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tai_xe_tree" model="ir.ui.view">
+        <field name="name">tai.xe.tree</field>
+        <field name="model">tai_xe</field>
+        <field name="arch" type="xml">
+            <tree string="Danh Sách Tài Xế">
+                <field name="driver_id" string="🆔 Mã TX"/>
+                <field name="name" string="👤 Họ Tên"/>
+                <field name="phone" string="📞 SĐT"/>
+                <field name="email" string="📧 Email"/>
+                <field name="license_number" string="🚘 Bằng Lái"/>
+                <field name="experience" string="🏎️ Kinh Nghiệm"/>
+                <field name="rating" string="⭐ Đánh Giá"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_tai_xe" model="ir.actions.act_window">
+        <field name="name">🚛 Quản Lý Tài Xế</field>
+        <field name="res_model">tai_xe</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>

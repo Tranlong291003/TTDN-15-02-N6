@@ -56,10 +56,11 @@
                                 <field name="nhien_lieu_ids">
                                     <tree editable="bottom">
                                         <field name="date" string="📅 Ngày Đổ Nhiên Liệu"/>
-                                        <field name="fuel_liters" string="⛽ Số Lít"/>
                                         <field name="fuel_price" string="💰 Giá Nhiên Liệu"/>
+                                        <field name="fuel_liters" string="⛽ Số Lít"/>
                                         <field name="current_km" string="📏 Số Km Hiện Tại"/>
                                         <field name="fuel_efficiency" string="⚡ Tiêu Hao (lít/km)"/>
+                                        <field name="estimated_range" string="📏 Số Km dự kiến đổ lại"/>
                                     </tree>
                                 </field>
                             </page>

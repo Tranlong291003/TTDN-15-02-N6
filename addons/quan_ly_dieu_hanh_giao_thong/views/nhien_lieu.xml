@@ -1,120 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <!-- View Lịch Trình -->
-        <record id="view_lich_trinh_tree" model="ir.ui.view">
-            <field name="name">lich_trinh_tree</field>
-            <field name="model">lich_trinh</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="vehicle_id"/>
-                    <field name="driver_id"/>
-                    <field name="start_time"/>
-                    <field name="end_time"/>
-                    <field name="start_location"/>
-                    <field name="end_location"/>
-                    <field name="status"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_lich_trinh_form" model="ir.ui.view">
-            <field name="name">lich_trinh_form</field>
-            <field name="model">lich_trinh</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
+    <!-- Giao diện Danh Sách (Tree View) -->
+    <record id="view_nhien_lieu_tree" model="ir.ui.view">
+        <field name="name">nhien.lieu.tree</field>
+        <field name="model">nhien_lieu</field>
+        <field name="arch" type="xml">
+            <tree string="📊 Quản Lý Nhiên Liệu">
+                <field name="fuel_id" string="🆔 Mã Nhiên Liệu"/>
+                <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                <field name="license_plate" string="🔤 Biển Số Xe"/>
+                <field name="date" string="📅 Ngày Đổ Xăng"/>
+                <field name="previous_km" string="📏 Số Km Trước Khi Đổ"/>
+                <field name="current_km" string="📏 Số Km Hiện Tại"/>
+                <field name="fuel_price" string="💰 Giá Xăng (nghìn VND)"/>
+                <field name="fuel_liters" string="⛽ Số Lít Xăng"/>
+                <field name="driven_km" string="📉 Số Km Đã Đi"/>
+                <field name="fuel_efficiency" string="⚡ Hiệu Suất Tiêu Hao (km/lít)"/>
+                <field name="estimated_range" string="🚀 Số Km Dự Kiến Đổ Lại"/>
+                <field name="notes" string="📝 Ghi Chú"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Giao diện Biểu Mẫu (Form View) -->
+    <record id="view_nhien_lieu_form" model="ir.ui.view">
+        <field name="name">nhien.lieu.form</field>
+        <field name="model">nhien_lieu</field>
+        <field name="arch" type="xml">
+            <form string="⛽ Quản Lý Nhiên Liệu">
+                <sheet>
+                    <group string="🔍 Thông Tin Chung" col="2">
                         <group>
+                            <field name="fuel_id" readonly="1"/>
                             <field name="vehicle_id"/>
-                            <field name="driver_id"/>
-                            <field name="start_time"/>
-                            <field name="end_time"/>
-                            <field name="start_location"/>
-                            <field name="end_location"/>
-                            <field name="status"/>
-                            <field name="notes"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_lich_trinh_search" model="ir.ui.view">
-            <field name="name">lich_trinh_search</field>
-            <field name="model">lich_trinh</field>
-            <field name="arch" type="xml">
-                <search>
-                    <field name="vehicle_id"/>
-                    <field name="driver_id"/>
-                    <field name="start_time"/>
-                    <field name="end_time"/>
-                    <field name="status"/>
-                </search>
-            </field>
-        </record>
-
-        <!-- Action Lịch Trình -->
-        <record id="action_lich_trinh" model="ir.actions.act_window">
-            <field name="name">Lịch Trình</field>
-            <field name="res_model">lich_trinh</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_lich_trinh_search"/>
-            <field name="help">Thêm, sửa, xóa thông tin lịch trình</field>
-        </record>
-
-        <!-- View Nhiên Liệu -->
-        <record id="view_nhien_lieu_tree" model="ir.ui.view">
-            <field name="name">nhien_lieu_tree</field>
-            <field name="model">nhien_lieu</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="vehicle_id"/>
-                    <field name="date"/>
-                    <field name="current_km"/>
-                    <field name="fuel_liters"/>
-                    <field name="fuel_price"/>
-                    <field name="fuel_efficiency"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_nhien_lieu_form" model="ir.ui.view">
-            <field name="name">nhien_lieu_form</field>
-            <field name="model">nhien_lieu</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
                         <group>
-                            <field name="vehicle_id"/>
+                            <field name="license_plate" readonly="1"/>
                             <field name="date"/>
-                            <field name="current_km"/>
-                            <field name="fuel_liters"/>
-                            <field name="fuel_price"/>
-                            <field name="fuel_efficiency"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_nhien_lieu_search" model="ir.ui.view">
-            <field name="name">nhien_lieu_search</field>
-            <field name="model">nhien_lieu</field>
-            <field name="arch" type="xml">
-                <search>
-                    <field name="vehicle_id"/>
-                    <field name="date"/>
-                </search>
-            </field>
-        </record>
-
-        <!-- Action Nhiên Liệu -->
-        <record id="action_nhien_lieu" model="ir.actions.act_window">
-            <field name="name">Nhiên Liệu</field>
-            <field name="res_model">nhien_lieu</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_nhien_lieu_search"/>
-            <field name="help">Thêm, sửa, xóa thông tin nhiên liệu</field>
-        </record>
-    </data>
+                    </group>
+                    <group string="📏 Quãng Đường" col="2">
+                        <group>
+                            <field name="previous_km" readonly="1"/>
+                            <field name="current_km"/>
+                        </group>
+                        <group>
+                            <field name="driven_km" readonly="1"/>
+                            <field name="estimated_range" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="⛽ Nhiên Liệu &amp; Giá Cả" col="2">
+                        <group>
+                            <field name="fuel_price"/>
+                            <field name="fuel_liters" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="fuel_efficiency" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="📝 Ghi Chú">
+                        <field name="notes" placeholder="Nhập ghi chú nếu cần..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Hành động mở Menu -->
+    <record id="action_nhien_lieu" model="ir.actions.act_window">
+        <field name="name">⛽ Quản Lý Nhiên Liệu</field>
+        <field name="res_model">nhien_lieu</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>
