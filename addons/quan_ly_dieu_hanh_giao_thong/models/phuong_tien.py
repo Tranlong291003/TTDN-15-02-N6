@@ -9,6 +9,8 @@ class PhuongTien(models.Model):
     bao_tri_ids = fields.One2many('bao_tri', 'vehicle_id', string="Lịch Sử Bảo Trì")
     lich_trinh_ids = fields.One2many('lich_trinh', 'vehicle_id', string="Lịch Trình")
     nhien_lieu_ids = fields.One2many('nhien_lieu', 'vehicle_id', string="⛽ Lịch Sử Đổ Nhiên Liệu")
+    hop_dong_bao_hiem_ids = fields.One2many('hop_dong_bao_hiem', 'vehicle_id', string="📜 Hợp Đồng Bảo Hiểm")
+
 
     name = fields.Char(string='Tên phương tiện', required=True)
     license_plate = fields.Char(string='Biển số xe', required=True)
