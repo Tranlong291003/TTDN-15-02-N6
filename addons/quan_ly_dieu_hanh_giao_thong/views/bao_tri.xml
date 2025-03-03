@@ -10,6 +10,7 @@
                       decoration-danger="maintenance_type == 'replacement'">
                     <field name="maintenance_id" string="🆔 Mã Bảo Trì"/>
                     <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                    <field name="vehicle_license_plate" string="🔤 Biển Số Xe"/>
                     <field name="maintenance_date" string="📅 Ngày Bảo Trì"/>
                     <field name="maintenance_type" string="📑 Loại Bảo Trì" widget="statusbar" options="{'clickable': '1'}"/>
                     <field name="service_provider_id" string="🏢 Nhà Cung Cấp"/>
@@ -79,11 +80,44 @@
                 </search>
             </field>
         </record>
+        <!-- Biểu đồ cột: Chi phí bảo trì theo nhà cung cấp -->
+        <record id="view_bao_tri_graph" model="ir.ui.view">
+            <field name="name">bao_tri_graph</field>
+            <field name="model">bao_tri</field>
+            <field name="arch" type="xml">
+                <graph type="bar">
+                    <field name="cost" string="💰 Chi Phí Bảo Trì"/>
+                    <field name="service_provider_id" string="🏢 Nhà Cung Cấp" groupby="service_provider_id"/>
+                </graph>
+            </field>
+        </record>
+        <!-- Biểu đồ tròn: Tỉ lệ loại bảo trì -->
+        <record id="view_bao_tri_pie" model="ir.ui.view">
+            <field name="name">bao_tri_pie</field>
+            <field name="model">bao_tri</field>
+            <field name="arch" type="xml">
+                <graph type="pie">
+                    <field name="maintenance_type" string="📑 Loại Bảo Trì" groupby="maintenance_type"/>
+                    <field name="cost" string="💰 Chi Phí Bảo Trì"/>
+                </graph>
+            </field>
+        </record>
+        <!-- Biểu đồ đường: Chi phí bảo trì theo ngày -->
+        <record id="view_bao_tri_line" model="ir.ui.view">
+            <field name="name">bao_tri_line</field>
+            <field name="model">bao_tri</field>
+            <field name="arch" type="xml">
+                <graph type="line">
+                    <field name="maintenance_date" string="📅 Ngày Bảo Trì" groupby="maintenance_date"/>
+                    <field name="cost" string="💰 Chi Phí Bảo Trì"/>
+                </graph>
+            </field>
+        </record>
         <!-- Action for Bảo Trì -->
         <record id="action_bao_tri" model="ir.actions.act_window">
             <field name="name">🛠️ Quản Lý Bảo Trì</field>
             <field name="res_model">bao_tri</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref="view_bao_tri_search"/>
         </record>
     </data>

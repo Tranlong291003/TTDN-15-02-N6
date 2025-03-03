@@ -1,97 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!-- Tree View -->
+        <!-- Tree View for Lịch Trình -->
         <record id="view_lich_trinh_tree" model="ir.ui.view">
             <field name="name">lich_trinh_tree</field>
             <field name="model">lich_trinh</field>
             <field name="arch" type="xml">
-                <tree>
-                    <field name="schedule_id" string="Mã Lịch Trình"/>
-                    <field name="vehicle_id" string="Phương Tiện"/>
-                    <field name="driver_id" string="Tài Xế"/>
-                    <field name="start_time" string="Thời Gian Bắt Đầu"/>
-                    <field name="end_time" string="Thời Gian Kết Thúc"/>
-                    <field name="status" string="Trạng Thái"/>
+                <tree decoration-success="status == 'completed'" 
+                      decoration-danger="status == 'cancelled'"
+                      decoration-warning="status == 'pending'">
+                    <field name="schedule_id" string="🆔 Mã Lịch Trình"/>
+                    <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                    <field name="driver_id" string="👤 Tài Xế"/>
+                    <field name="start_time" string="⏳ Thời Gian Bắt Đầu"/>
+                    <field name="end_time" string="🏁 Thời Gian Kết Thúc"/>
+                    <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
                 </tree>
             </field>
         </record>
-
-        <!-- Form View -->
+        <!-- Form View for Lịch Trình -->
         <record id="view_lich_trinh_form" model="ir.ui.view">
             <field name="name">lich_trinh_form</field>
             <field name="model">lich_trinh</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group>
+                        <h1 class="oe_title" style="color: #3498db;">📅 Quản Lý Lịch Trình</h1>
+                        <group col="2" string="Thông tin lịch trình">
                             <group>
-                                <field name="schedule_id" string="Mã Lịch Trình" readonly="1"/>
-                                <field name="status" string="Trạng Thái"/>
-                                <field name="notes" string="Ghi Chú"/>
+                                <field name="schedule_id" readonly="1"/>
+                                <field name="status" widget="selection"/>
+                                <field name="vehicle_id"/>
                             </group>
                             <group>
-                                <field name="vehicle_id" string="Phương Tiện"/>
-                                <field name="driver_id" string="Tài Xế"/>
-                                <field name="start_location" string="Điểm Bắt Đầu"/>
-                                <field name="end_location" string="Điểm Kết Thúc"/>
-                            </group>
-                            <group>
-                                <field name="start_time" string="Thời Gian Bắt Đầu"/>
-                                <field name="end_time" string="Thời Gian Kết Thúc"/>
+                                <field name="driver_id"/>
+                                <field name="start_location" string="📍 Điểm Bắt Đầu"/>
+                                <field name="end_location" string="📌 Điểm Kết Thúc"/>
                             </group>
                         </group>
+                        <group col="2" string="Thời gian">
+                            <group>
+                                <field name="start_time" string="⏳ Bắt Đầu"/>
+                            </group>
+                            <group>
+                                <field name="end_time" string="🏁  Kết Thúc"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="🚗 Phương Tiện">
+                                <group col="2">
+                                    <group>
+                                        <field name="vehicle_name" string="🚗 Tên Phương Tiện" readonly="1"/>
+                                        <field name="vehicle_license_plate" string="🏷 Biển Số" readonly="1"/>
+                                        <field name="vehicle_type" string="🚘 Loại Xe" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="vehicle_status" string="📌 Trạng Thái" readonly="1"/>
+                                        <field name="vehicle_manufacturer" string="🏭 Hãng Sản Xuất" readonly="1"/>
+                                        <field name="vehicle_mileage" string="📏 Số Km Đã Đi" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
-
-        <!-- Kanban View -->
-        <record id="view_lich_trinh_kanban" model="ir.ui.view">
-            <field name="name">lich_trinh_kanban</field>
-            <field name="model">lich_trinh</field>
-            <field name="arch" type="xml">
-                <kanban>
-                    <field name="schedule_id"/>
-                    <field name="vehicle_id"/>
-                    <field name="driver_id"/>
-                    <field name="status"/>
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_details">
-                                <strong t-esc="record.schedule_id.value"/>
-                                <span t-esc="record.vehicle_id.value"/>
-                                <span t-esc="record.driver_id.value"/>
-                                <span class="oe_kanban_status" t-esc="record.status.value"/>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>
-
-        <!-- Search View -->
+        <!-- Search View for Lịch Trình -->
         <record id="view_lich_trinh_search" model="ir.ui.view">
             <field name="name">lich_trinh_search</field>
             <field name="model">lich_trinh</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="vehicle_id" string="Phương Tiện"/>
-                    <field name="driver_id" string="Tài Xế"/>
-                    <field name="start_time" string="Thời Gian Bắt Đầu"/>
-                    <field name="end_time" string="Thời Gian Kết Thúc"/>
-                    <field name="status" string="Trạng Thái"/>
+                    <field name="vehicle_id"/>
+                    <field name="driver_id"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                    <field name="status"/>
                 </search>
             </field>
         </record>
-
-        <!-- Action -->
+        <!-- Action for Lịch Trình -->
         <record id="action_lich_trinh" model="ir.actions.act_window">
-            <field name="name">Lịch Trình</field>
+            <field name="name">📅 Quản Lý Lịch Trình</field>
             <field name="res_model">lich_trinh</field>
-            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_lich_trinh_search"/>
-            <field name="help">Thêm, sửa, xóa thông tin lịch trình</field>
         </record>
     </data>
 </odoo>

@@ -23,6 +23,20 @@
                 <field name="insurance_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
               </group>
             </group>
+            <notebook>
+              <page string="Hợp đông bảo hiểm">
+                <field name="hop_dong_bao_hiem_ids">
+                  <tree editable="bottom">
+                    <field name="contract_id" string="🆔 Mã Hợp Đồng"/>
+                    <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                    <field name="contract_start" string="📅 Ngày Bắt Đầu"/>
+                    <field name="contract_end" string="📅 Ngày Kết Thúc"/>
+                    <field name="insurance_package" string="📜 Gói Bảo Hiểm"/>
+                    <field name="insurance_price" string="💰 Giá Bảo Hiểm"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
           </sheet>
         </form>
       </field>

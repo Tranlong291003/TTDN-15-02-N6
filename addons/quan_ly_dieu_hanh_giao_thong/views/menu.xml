@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Menu gốc -->
-        <menuitem id="menu_root" name="QLDHGT" sequence="0"/>
-
-        <!-- Quản lý phương tiện -->
-        <menuitem id="menu_quan_ly_phuong_tien" name="Quản lý phương tiện" parent="menu_root" sequence="1"/>
-        <menuitem id="menu_phuong_tien" name="Phương Tiện" parent="menu_quan_ly_phuong_tien" sequence="1" action="action_phuong_tien"/>
-        <menuitem id="menu_hang_san_xuat" name="Đơn vị sản xuất" parent="menu_quan_ly_phuong_tien" sequence="2" action="action_hang_san_xuat"/>
-
-        <!-- Quản lý chi phí vận hành -->
-        <menuitem id="menu_quan_ly_chi_phi_van_hanh" name="Quản lý chi phí vận hành" parent="menu_root" sequence="2"/>
-        <!-- Danh mục rẽ nhánh ngang của chi phí vận hành -->
-        <menuitem id="menu_bao_tri" name="Hoá đơn bảo trì" parent="menu_quan_ly_chi_phi_van_hanh" sequence="1" action="action_bao_tri"/>
-        <menuitem id="menu_hop_dong_bao_hiem" name="Hợp đồng bảo hiểm" parent="menu_quan_ly_chi_phi_van_hanh" sequence="2" action="action_hop_dong_bao_hiem"/>
-        <menuitem id="menu_nhien_lieu" name="Hoá đơn nhiên liệu" parent="menu_quan_ly_chi_phi_van_hanh" sequence="3" action="action_nhien_lieu"/>
-        <menuitem id="menu_vi_pham" name="Hoá đơn vi phạm" parent="menu_quan_ly_chi_phi_van_hanh" sequence="4" action="action_vi_pham"/>
-
-        <!-- Lịch trình -->
-        <menuitem id="menu_lich_trinh" name="Quản lý lịch trình" parent="menu_root" sequence="3" action="action_lich_trinh"/>
-
-        <!-- Quản lý tài xế -->
-        <menuitem id="menu_tai_xe" name="Quản lý tài xế" parent="menu_root" sequence="4" action="action_tai_xe"/>
-
-        <!-- Quản lý Nhà Cung Cấp-->
-        <menuitem id="menu_quan_ly_ncc" name="Quản lý Nhà Cung Cấp" parent="menu_root" sequence="10"/>
-        <menuitem id="menu_nha_cung_cap_bao_tri" name="Bảo Trì" parent="menu_quan_ly_ncc" sequence="1" action="action_nha_cung_cap_bao_tri"/>
-        <menuitem id="menu_cong_ty_bao_hiem" name="Bảo hiểm" parent="menu_quan_ly_ncc" sequence="1" action="action_cong_ty_bao_hiem"/>
-
+        <!-- 🌍 Menu Gốc -->
+        <menuitem id="menu_root" name="🚘 Quản Lý Điều Hành Giao Thông" sequence="0"/>
+        <!-- 🚗 Quản lý phương tiện -->
+        <menuitem id="menu_quan_ly_phuong_tien" name="🚗 Quản Lý Phương Tiện" parent="menu_root" sequence="1"/>
+        <menuitem id="menu_phuong_tien" name="🚘 Danh Sách Phương Tiện" parent="menu_quan_ly_phuong_tien" sequence="1" action="action_phuong_tien"/>
+        <menuitem id="menu_hang_san_xuat" name="🏭 Đơn Vị Sản Xuất" parent="menu_quan_ly_phuong_tien" sequence="2" action="action_hang_san_xuat"/>
+        <!-- ⛽ Quản lý chi phí vận hành -->
+        <menuitem id="menu_quan_ly_chi_phi_van_hanh" name="⛽ Quản Lý Chi Phí Vận Hành" parent="menu_root" sequence="2"/>
+        <menuitem id="menu_bao_tri" name="🛠️ Hợp Đồng Bảo Trì" parent="menu_quan_ly_chi_phi_van_hanh" sequence="1" action="action_bao_tri"/>
+        <menuitem id="menu_hop_dong_bao_hiem" name="📜 Hợp Đồng Bảo Hiểm" parent="menu_quan_ly_chi_phi_van_hanh" sequence="2" action="action_hop_dong_bao_hiem"/>
+        <menuitem id="menu_thue_xe" name="🚖 Hợp Đồng Thuê Xe" parent="menu_quan_ly_chi_phi_van_hanh" sequence="3" action="action_thue_xe"/>
+        <menuitem id="menu_nhien_lieu" name="⛽ Hóa Đơn Nhiên Liệu" parent="menu_quan_ly_chi_phi_van_hanh" sequence="4" action="action_nhien_lieu"/>
+        <menuitem id="menu_vi_pham" name="⚠️ Hóa Đơn Vi Phạm" parent="menu_quan_ly_chi_phi_van_hanh" sequence="5" action="action_vi_pham"/>
+        <!-- 🗓️ Quản lý lịch trình -->
+        <menuitem id="menu_lich_trinh" name="📅 Quản Lý Lịch Trình" parent="menu_root" sequence="3" action="action_lich_trinh"/>
+        <!-- 👨‍✈️ Quản lý tài xế -->
+        <menuitem id="menu_tai_xe" name="👨‍✈️ Quản Lý Tài Xế" parent="menu_root" sequence="4" action="action_tai_xe"/>
+        <!-- 🏢 Quản lý Nhà Cung Cấp -->
+        <menuitem id="menu_quan_ly_ncc" name="🏢 Quản Lý Nhà Cung Cấp" parent="menu_root" sequence="10"/>
+        <menuitem id="menu_nha_cung_cap_bao_tri" name="🔧 Nhà Cung Cấp Bảo Trì" parent="menu_quan_ly_ncc" sequence="1" action="action_nha_cung_cap_bao_tri"/>
+        <menuitem id="menu_cong_ty_bao_hiem" name="🏦 Công Ty Bảo Hiểm" parent="menu_quan_ly_ncc" sequence="2" action="action_cong_ty_bao_hiem"/>
+        <!-- 📊 Báo Cáo Tổng Hợp -->
+        <menuitem id="menu_bao_cao_tong_hop" name="📊 Báo Cáo Tổng Hợp" parent="menu_root" sequence="20" action="action_bao_cao_tong_hop"/>
     </data>
 </odoo>

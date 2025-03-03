@@ -1,50 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- Form View -->
-    <record id="view_nha_cung_cap_bao_tri_form" model="ir.ui.view">
-        <field name="name">nha_cung_cap_bao_tri.form</field>
-        <field name="model">nha_cung_cap_bao_tri</field>
-        <field name="arch" type="xml">
-            <form string="Nhà Cung Cấp Dịch Vụ Bảo Trì">
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="supplier_id"/>
-                            <field name="name"/>
+    <data>
+        <!-- Tree View for Nhà Cung Cấp Bảo Trì -->
+        <record id="view_nha_cung_cap_bao_tri_tree" model="ir.ui.view">
+            <field name="name">nha_cung_cap_bao_tri_tree</field>
+            <field name="model">nha_cung_cap_bao_tri</field>
+            <field name="arch" type="xml">
+                <tree decoration-success="phone != False" 
+                      decoration-danger="phone == False">
+                    <field name="supplier_id" string="🆔 Mã NCC"/>
+                    <field name="name" string="🏢 Nhà Cung Cấp"/>
+                    <field name="contact_person" string="👤 Người Liên Hệ"/>
+                    <field name="phone" string="📞 SĐT"/>
+                    <field name="email" string="📧 Email"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Form View for Nhà Cung Cấp Bảo Trì -->
+        <record id="view_nha_cung_cap_bao_tri_form" model="ir.ui.view">
+            <field name="name">nha_cung_cap_bao_tri_form</field>
+            <field name="model">nha_cung_cap_bao_tri</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1 class="oe_title" style="color: #3498db;">🏢 Nhà Cung Cấp Dịch Vụ Bảo Trì</h1>
+                        <group col="2" string="Thông tin nhà cung cấp">
+                            <group>
+                                <field name="supplier_id" readonly="1"/>
+                                <field name="name"/>
+                                <field name="contact_person"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="address"/>
+                            </group>
                         </group>
-                        <group>
-                            <field name="contact_person"/>
-                            <field name="phone"/>
-                        </group>
-                        <group>
-                            <field name="email"/>
-                            <field name="address"/>
-                        </group>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <!-- Tree View -->
-    <record id="view_nha_cung_cap_bao_tri_tree" model="ir.ui.view">
-        <field name="name">nha_cung_cap_bao_tri.tree</field>
-        <field name="model">nha_cung_cap_bao_tri</field>
-        <field name="arch" type="xml">
-            <tree string="Danh Sách Nhà Cung Cấp">
-                <field name="supplier_id"/>
-                <field name="name"/>
-                <field name="contact_person"/>
-                <field name="phone"/>
-                <field name="email"/>
-            </tree>
-        </field>
-    </record>
-
-    <!-- Action -->
-    <record id="action_nha_cung_cap_bao_tri" model="ir.actions.act_window">
-        <field name="name">Nhà Cung Cấp Bảo Trì</field>
-        <field name="res_model">nha_cung_cap_bao_tri</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+                        <notebook>
+                            <!-- Lịch Sử Bảo Trì -->
+                            <page string="🛠️ Lịch Sử Bảo Trì">
+                                <field name="bao_tri_ids">
+                                    <tree editable="bottom">
+                                        <field name="maintenance_id" string="🆔 Mã Bảo Trì"/>
+                                        <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                                        <field name="maintenance_date" string="📅 Ngày Bảo Trì"/>
+                                        <field name="maintenance_type" string="🛠️ Loại Bảo Trì"/>
+                                        <field name="details" string="📄 Chi Tiết"/>
+                                        <field name="cost" string="💰 Chi Phí"/>
+                                        <field name="next_maintenance" string="📅 Bảo Trì Tiếp Theo"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Search View for Nhà Cung Cấp Bảo Trì -->
+        <record id="view_nha_cung_cap_bao_tri_search" model="ir.ui.view">
+            <field name="name">nha_cung_cap_bao_tri_search</field>
+            <field name="model">nha_cung_cap_bao_tri</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="supplier_id"/>
+                    <field name="name"/>
+                    <field name="contact_person"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                </search>
+            </field>
+        </record>
+        <!-- Action for Nhà Cung Cấp Bảo Trì -->
+        <record id="action_nha_cung_cap_bao_tri" model="ir.actions.act_window">
+            <field name="name">🏢 Nhà Cung Cấp Bảo Trì</field>
+            <field name="res_model">nha_cung_cap_bao_tri</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_nha_cung_cap_bao_tri_search"/>
+        </record>
+    </data>
 </odoo>

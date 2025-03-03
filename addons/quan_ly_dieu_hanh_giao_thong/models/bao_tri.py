@@ -13,7 +13,13 @@ class BaoTri(models.Model):
         index=True, 
         default=lambda self: self._generate_maintenance_id()
     )
-
+    daily_rental_rate = fields.Float(string="💵 Giá Thuê/Ngày", required=True)
+    rental_status = fields.Selection([
+        ('available', '✅ Có Sẵn'),
+        ('rented', '🚗 Đang Thuê'),
+        ('maintenance', '🛠️ Bảo Trì'),
+        ('reserved', '🔒 Đã Đặt Trước')
+    ], string="📌 Trạng Thái Thuê", default='available')
     vehicle_id = fields.Many2one('phuong_tien', string='🚗 Phương Tiện', required=True)
     maintenance_date = fields.Date(string='📅 Ngày Bảo Trì', required=True, default=fields.Date.today)
     maintenance_type = fields.Selection([

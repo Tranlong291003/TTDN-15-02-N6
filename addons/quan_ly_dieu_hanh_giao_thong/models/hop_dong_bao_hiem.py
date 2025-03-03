@@ -41,7 +41,16 @@ class HopDongBaoHiem(models.Model):
     _sql_constraints = [
         ('contract_id_uniq', 'unique(contract_id)', '🆔 Mã Hợp Đồng không được trùng! Vui lòng nhập lại.')
     ]
+    contract_id = fields.Char(string='🆔 Mã Hợp Đồng', required=True)
+    vehicle_id = fields.Many2one('phuong_tien', string='🚗 Phương Tiện', required=True)
+    contract_start = fields.Date(string='📅 Ngày Bắt Đầu', required=True)
+    contract_end = fields.Date(string='📅 Ngày Kết Thúc', compute='_compute_contract_end', store=True)
+    
+    # Liên kết với cong_ty_bao_hiem
+    insurance_package_id = fields.Many2one('cong_ty_bao_hiem', string='📜 Gói Bảo Hiểm', required=True)
 
+    insurance_package = fields.Char(related='insurance_package_id.full_name', store=True, readonly=True)
+    insurance_price = fields.Float(related='insurance_package_id.insurance_price', store=True, readonly=True)
 
     vehicle_name = fields.Char(related='vehicle_id.name', store=True, string="Tên Phương Tiện")
     vehicle_license_plate = fields.Char(related='vehicle_id.license_plate', store=True, string="Biển Số")

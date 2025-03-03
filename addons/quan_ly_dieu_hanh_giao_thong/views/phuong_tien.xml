@@ -10,6 +10,7 @@
                         <h1 class="oe_title" style="color: #3498db;">🚗 Quản Lý Phương Tiện</h1>
                         <group col="2" string="Thông tin chung">
                             <group>
+                                <field name="vehicle_id" />
                                 <field name="name"/>
                                 <field name="license_plate"/>
                                 <field name="vehicle_type" widget="statusbar" options="{'clickable': '1'}"/>
@@ -20,6 +21,7 @@
                                 <field name="manufacture_year"/>
                                 <field name="manufacturer_id"/>
                                 <field name="driver_id"/>
+                                <field name="daily_rental_rate"/>
                             </group>
                         </group>
                         <group col="2">
@@ -43,6 +45,7 @@
                             <page string="📅 Lịch Trình">
                                 <field name="lich_trinh_ids">
                                     <tree editable="bottom">
+                                        <field name="schedule_id" string="🆔 Mã Lịch Trình"/>
                                         <field name="start_time" string="⏰ Xuất Phát"/>
                                         <field name="end_time" string="🏁 Kết Thúc"/>
                                         <field name="start_location" string="📍 Điểm Xuất Phát"/>
@@ -75,6 +78,34 @@
                                     </tree>
                                 </field>
                             </page>
+                            <page string="⚠️ Vi Phạm Giao Thông">
+                                <field name="vi_pham_ids">
+                                    <tree editable="bottom">
+                                        <field name="violation_id" string="🆔 Mã Vi Phạm"/>
+                                        <field name="driver_id" string="👤 Tài Xế"/>
+                                        <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                                        <field name="violation_type" string="⚠️ Loại Vi Phạm"/>
+                                        <field name="violation_date" string="📅 Ngày Vi Phạm"/>
+                                        <field name="fine_amount" string="💰 Số Tiền Phạt"/>
+                                        <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Hợp đồng thuê xe">
+                                <field name="thue_xe_ids">
+                                    <tree editable="bottom">
+                                        <field name="rental_id" string="🆔 Mã Thuê Xe"/>
+                                        <field name="customer_name" string="👤 Tên Khách Hàng"/>
+                                        <field name="customer_phone" string="📞 SĐT Khách Hàng"/>
+                                        <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                                        <field name="rental_start" string="📅 Ngày Bắt Đầu"/>
+                                        <field name="rental_end" string="📅 Ngày kết thúc"/>
+                                        <field name="rental_days" string="📆 Số Ngày Thuê"/>
+                                        <field name="total_price" string="💵 Tổng Tiền"/>
+                                        <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
+                                    </tree>
+                                </field>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>
@@ -88,11 +119,12 @@
                 <tree decoration-success="status == 'available'" 
                       decoration-danger="status == 'broken'" 
                       decoration-warning="status == 'maintenance'">
+                    <field name="vehicle_id" string="🆔 Mã phương tiện" />
                     <field name="name" string="🚗 Phương Tiện"/>
-                    <field name="license_plate" string="🏷 Biển Số"/>
-                    <field name="vehicle_type" string="🚘 Loại Xe" widget="badge"/>
-                    <field name="mileage" string="📏 Số Km" align="left"/>
                     <field name="manufacturer_id" string="🏭 Hãng Sản Xuất"/>
+                    <field name="vehicle_type" string="🚘 Loại Xe" widget="badge"/>
+                    <field name="license_plate" string="🏷 Biển Số"/>
+                    <field name="mileage" string="📏 Số Km" align="left"/>
                     <field name="status" string="📌 Trạng Thái" widget="statusbar" options="{'clickable': '1'}"/>
                 </tree>
             </field>

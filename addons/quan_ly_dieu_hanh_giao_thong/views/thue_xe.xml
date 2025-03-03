@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!-- Tree View for Thuê Xe -->
+    <record id="view_thue_xe_tree" model="ir.ui.view">
+      <field name="name">thue_xe_tree</field>
+      <field name="model">thue_xe</field>
+      <field name="arch" type="xml">
+        <tree decoration-success="status == 'completed'"
+                      decoration-warning="status == 'pending'"
+                      decoration-danger="status == 'cancelled'">
+          <field name="rental_id" string="🆔 Mã Thuê Xe"/>
+          <field name="customer_name" string="👤 Khách Hàng"/>
+          <field name="vehicle_id" string="🚗 Phương Tiện"/>
+          <field name="rental_start" string="📅 Bắt Đầu"/>
+          <field name="rental_end" string="📅 Kết Thúc"/>
+          <field name="rental_days" string="📆 Ngày"/>
+          <field name="total_price" string="💵 Tổng Giá"/>
+          <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Form View for Thuê Xe -->
+    <record id="view_thue_xe_form" model="ir.ui.view">
+      <field name="name">thue_xe_form</field>
+      <field name="model">thue_xe</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <h1 class="oe_title" style="color: #3498db;">🚗 Quản Lý Thuê Xe</h1>
+            <group col="2" string="Thông tin thuê xe">
+              <group>
+                <field name="rental_id" readonly="1"/>
+                <field name="customer_name"/>
+                <field name="customer_phone"/>
+              </group>
+              <group>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="status" widget="selection"/>
+              </group>
+            </group>
+            <group col="2" string="Thời gian &amp; giá">
+              <group>
+                <field name="rental_start"/>
+                <field name="rental_end"/>
+              </group>
+              <group>
+                <field name="rental_days" readonly="1"/>
+                <field name="total_price" readonly="1"/>
+              </group>
+            </group>
+            <group>
+              <field name="deposit"/>
+              <field name="notes"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- Action for Thuê Xe -->
+    <record id="action_thue_xe" model="ir.actions.act_window">
+      <field name="name">🚗 Quản Lý Thuê Xe</field>
+      <field name="res_model">thue_xe</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  </data>
+</odoo>

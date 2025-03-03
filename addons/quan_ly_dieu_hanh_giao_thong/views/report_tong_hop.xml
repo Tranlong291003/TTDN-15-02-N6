@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!-- Tree View for Báo Cáo Tổng Hợp -->
+    <record id="view_bao_cao_tong_hop_tree" model="ir.ui.view">
+      <field name="name">bao_cao_tong_hop_tree</field>
+      <field name="model">bao_cao.tong_hop</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="total_rentals" string="📅 Tổng Số Đơn Thuê"/>
+          <field name="total_revenue" string="💵 Tổng Doanh Thu"/>
+          <field name="total_vehicles" string="🚗 Tổng Số Xe"/>
+          <field name="available_vehicles" string="✅ Xe Có Sẵn"/>
+          <field name="rented_vehicles" string="🚗 Xe Đang Thuê"/>
+          <field name="maintenance_vehicles" string="🛠️ Xe Bảo Trì"/>
+          <field name="total_violations" string="⚠️ Tổng Vi Phạm"/>
+          <field name="total_maintenance_cost" string="💰 Chi Phí Bảo Trì"/>
+          <field name="total_drivers" string="👨‍✈️ Tổng Số Tài Xế"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Form View for Báo Cáo Tổng Hợp -->
+    <record id="view_bao_cao_tong_hop_form" model="ir.ui.view">
+      <field name="name">bao_cao_tong_hop_form</field>
+      <field name="model">bao_cao.tong_hop</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <h1 class="oe_title" style="color: #3498db;">📊 Báo Cáo Tổng Hợp</h1>
+            <group col="2">
+              <group>
+                <field name="total_rentals"/>
+                <field name="total_revenue"/>
+                <field name="total_vehicles"/>
+              </group>
+              <group>
+                <field name="available_vehicles"/>
+                <field name="rented_vehicles"/>
+                <field name="maintenance_vehicles"/>
+              </group>
+            </group>
+            <group col="2">
+              <group>
+                <field name="total_violations"/>
+                <field name="total_maintenance_cost"/>
+                <field name="total_drivers"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- Biểu đồ cột: Trạng thái xe -->
+    <record id="view_bao_cao_tong_hop_graph" model="ir.ui.view">
+      <field name="name">bao_cao_tong_hop_graph</field>
+      <field name="model">bao_cao.tong_hop</field>
+      <field name="arch" type="xml">
+        <graph type="bar">
+          <field name="available_vehicles" string="✅ Xe Có Sẵn"/>
+          <field name="rented_vehicles" string="🚗 Xe Đang Thuê"/>
+          <field name="maintenance_vehicles" string="🛠️ Xe Bảo Trì"/>
+          <field name="total_vehicles" string="🚗 Tổng Số Xe" groupby="id"/>
+        </graph>
+      </field>
+    </record>
+    <!-- Biểu đồ tròn: Phân bổ xe -->
+    <record id="view_bao_cao_tong_hop_pie" model="ir.ui.view">
+      <field name="name">bao_cao_tong_hop_pie</field>
+      <field name="model">bao_cao.tong_hop</field>
+      <field name="arch" type="xml">
+        <graph type="pie">
+          <field name="available_vehicles" string="✅ Xe Có Sẵn" groupby="id"/>
+          <field name="rented_vehicles" string="🚗 Xe Đang Thuê" groupby="id"/>
+          <field name="maintenance_vehicles" string="🛠️ Xe Bảo Trì" groupby="id"/>
+        </graph>
+      </field>
+    </record>
+    <!-- Biểu đồ đường: Doanh thu theo thời gian -->
+    <record id="view_bao_cao_tong_hop_line" model="ir.ui.view">
+      <field name="name">bao_cao_tong_hop_line</field>
+      <field name="model">bao_cao.tong_hop</field>
+      <field name="arch" type="xml">
+        <graph type="line">
+          <field name="total_revenue" string="💵 Tổng Doanh Thu"/>
+          <field name="total_rentals" string="📅 Tổng Đơn Thuê" groupby="id"/>
+        </graph>
+      </field>
+    </record>
+    <!-- Pivot View for Báo Cáo Tổng Hợp -->
+    <record id="view_bao_cao_tong_hop_pivot" model="ir.ui.view">
+      <field name="name">bao_cao_tong_hop_pivot</field>
+      <field name="model">bao_cao.tong_hop</field>
+      <field name="arch" type="xml">
+        <pivot>
+          <field name="total_revenue" string="💵 Tổng Doanh Thu"/>
+          <field name="total_rentals" string="📅 Tổng Đơn Thuê" groupby="id"/>
+          <field name="total_vehicles" string="🚗 Tổng Số Xe" groupby="id"/>
+        </pivot>
+      </field>
+    </record>
+    <!-- Action for Báo Cáo Tổng Hợp -->
+    <record id="action_bao_cao_tong_hop" model="ir.actions.act_window">
+      <field name="name">📊 Báo Cáo Tổng Hợp</field>
+      <field name="res_model">bao_cao.tong_hop</field>
+      <field name="view_mode">tree,form,graph,pivot</field>
+    </record>
+    <!-- Menu -->
+    <menuitem id="menu_report" name="📊 Báo Cáo" sequence="20"/>
+    <menuitem id="menu_bao_cao_tong_hop" name="📊 Báo Cáo Tổng Hợp" parent="menu_report" action="action_bao_cao_tong_hop"/>
+  </data>
+</odoo>

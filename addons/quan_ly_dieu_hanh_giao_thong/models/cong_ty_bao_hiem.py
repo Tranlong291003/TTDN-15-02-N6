@@ -4,6 +4,9 @@ class CongTyBaoHiem(models.Model):
     _name = 'cong_ty_bao_hiem'
     _description = '🏦 Quản lý Công Ty & Gói Bảo Hiểm'
 
+
+    hop_dong_bao_hiem_ids = fields.One2many('hop_dong_bao_hiem', 'insurance_package_id', string="Lịch Sử Bảo Trì")
+
     insurance_id = fields.Char(
         string='🆔 Mã Bảo Hiểm', 
         required=True, 

@@ -1,60 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <!-- Tree View for Vi Phạm -->
         <record id="view_vi_pham_tree" model="ir.ui.view">
             <field name="name">vi_pham_tree</field>
             <field name="model">vi_pham</field>
             <field name="arch" type="xml">
-                <tree>
-                    <field name="driver_id"/>
-                    <field name="vehicle_id"/>
-                    <field name="violation_type"/>
-                    <field name="violation_date"/>
-                    <field name="fine_amount"/>
-                    <field name="status"/>
+                <tree decoration-success="status == 'paid'" 
+                      decoration-danger="status == 'pending'">
+                    <field name="violation_id" string="🆔 Mã Vi Phạm"/>
+                    <field name="driver_id" string="👤 Tài Xế"/>
+                    <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                    <field name="violation_type" string="⚠️ Loại Vi Phạm"/>
+                    <field name="violation_date" string="📅 Ngày Vi Phạm"/>
+                    <field name="fine_amount" string="💰 Số Tiền Phạt"/>
+                    <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
                 </tree>
             </field>
         </record>
-
+        <!-- Form View for Vi Phạm -->
         <record id="view_vi_pham_form" model="ir.ui.view">
             <field name="name">vi_pham_form</field>
             <field name="model">vi_pham</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group>
-                            <field name="driver_id"/>
-                            <field name="vehicle_id"/>
-                            <field name="violation_type"/>
-                            <field name="violation_date"/>
-                            <field name="fine_amount"/>
-                            <field name="status"/>
+                        <h1 class="oe_title" style="color: #e74c3c;">⚠️ Quản Lý Vi Phạm Giao Thông</h1>
+                        <group col="2" string="Thông tin vi phạm">
+                            <group>
+                                <field name="violation_id" readonly="1"/>
+                                <field name="driver_id"/>
+                                <field name="vehicle_id"/>
+                                <field name="violation_type"/>
+                            </group>
+                            <group>
+                                <field name="violation_date"/>
+                                <field name="fine_amount"/>
+                                <field name="status" widget="selection"/>
+                            </group>
                         </group>
+                        <notebook>
+                            <!-- Tab Thông Tin Phương Tiện -->
+                            <page string="🚗 Phương Tiện">
+                                <group col="2">
+                                    <group>
+                                        <field name="vehicle_name" string="🚗 Tên Phương Tiện" readonly="1"/>
+                                        <field name="vehicle_license_plate" string="🏷 Biển Số" readonly="1"/>
+                                        <field name="vehicle_type" string="🚘 Loại Xe" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="vehicle_status" string="📌 Trạng Thái" readonly="1"/>
+                                        <field name="vehicle_manufacturer" string="🏭 Hãng Sản Xuất" readonly="1"/>
+                                        <field name="vehicle_mileage" string="📏 Số Km Đã Đi" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
-
+        <!-- Search View for Vi Phạm -->
         <record id="view_vi_pham_search" model="ir.ui.view">
             <field name="name">vi_pham_search</field>
             <field name="model">vi_pham</field>
             <field name="arch" type="xml">
                 <search>
+                    <field name="violation_id"/>
                     <field name="driver_id"/>
                     <field name="vehicle_id"/>
                     <field name="violation_type"/>
-                    <field name="violation_date"/>
                     <field name="status"/>
                 </search>
             </field>
         </record>
-
-        <!-- Action Vi Phạm -->
+        <!-- Action for Vi Phạm -->
         <record id="action_vi_pham" model="ir.actions.act_window">
-            <field name="name">Vi Phạm</field>
+            <field name="name">⚠️ Quản Lý Vi Phạm</field>
             <field name="res_model">vi_pham</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_vi_pham_search"/>
-            <field name="help">Thêm, sửa, xóa thông tin vi phạm giao thông</field>
         </record>
     </data>
 </odoo>

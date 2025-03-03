@@ -12,6 +12,7 @@ class NhaCungCapBaoTri(models.Model):
         index=True, 
         default=lambda self: self._generate_supplier_id()
     )
+    bao_tri_ids = fields.One2many('bao_tri', 'service_provider_id', string="Lịch Sử Bảo Trì")
 
     name = fields.Char(string='🏢 Nhà Cung Cấp', required=True)
     contact_person = fields.Char(string='👤 Người Liên Hệ')

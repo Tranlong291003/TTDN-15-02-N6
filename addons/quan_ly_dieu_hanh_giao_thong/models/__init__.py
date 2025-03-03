@@ -11,5 +11,5 @@ from . import hop_dong_bao_hiem
 from . import hang_san_xuat
 from . import cong_ty_bao_hiem
 from . import nha_cung_cap_bao_tri  
-
-
+from . import thue_xe  
+from . import report_tong_hop

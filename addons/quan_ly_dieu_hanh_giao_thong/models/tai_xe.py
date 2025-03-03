@@ -12,6 +12,7 @@ class TaiXe(models.Model):
         index=True,
         default=lambda self: self._generate_driver_id()
     )
+    phuong_tien_ids = fields.One2many('phuong_tien', 'driver_id', string="Quản lý phương tiện")
 
     name = fields.Char(string='👤 Họ Tên', required=True)
     phone = fields.Char(string='📞 Số Điện Thoại')
