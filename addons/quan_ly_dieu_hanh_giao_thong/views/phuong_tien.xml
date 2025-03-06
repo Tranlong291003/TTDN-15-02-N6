@@ -112,21 +112,20 @@
             </field>
         </record>
         <!-- Tree View for phuong_tien -->
-        <!-- Tree View for phuong_tien -->
         <record id="view_phuong_tien_tree" model="ir.ui.view">
             <field name="name">phuong_tien_tree</field>
             <field name="model">phuong_tien</field>
             <field name="arch" type="xml">
-                <tree decoration-success="status == 'Đang sử dụng'" 
-                      decoration-danger="status == 'Hỏng hóc'" 
-                      decoration-warning="status == 'Bảo trì'">
-                    <field name="vehicle_id" string="🆔 Mã phương tiện"/>
+                <tree decoration-success="status == 'available'" 
+                      decoration-danger="status == 'broken'" 
+                      decoration-warning="status == 'maintenance'">
+                    <field name="vehicle_id" string="🆔 Mã phương tiện" />
                     <field name="name" string="🚗 Phương Tiện"/>
                     <field name="manufacturer_id" string="🏭 Hãng Sản Xuất"/>
-                    <field name="vehicle_type" string="🚖 Loại Xe"/>
+                    <field name="vehicle_type" string="🚘 Loại Xe" widget="badge"/>
                     <field name="license_plate" string="🏷 Biển Số"/>
                     <field name="mileage" string="📏 Số Km" align="left"/>
-                    <field name="status" string="📌 Trạng Thái" widget="statusbar" options="{'clickable': '1'}" class="statusbar-color"/>
+                    <field name="status" string="📌 Trạng Thái" widget="statusbar" options="{'clickable': '1'}"/>
                 </tree>
             </field>
         </record>
