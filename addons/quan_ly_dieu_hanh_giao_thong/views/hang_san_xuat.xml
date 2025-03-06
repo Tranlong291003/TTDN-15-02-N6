@@ -12,7 +12,6 @@
                 </tree>
             </field>
         </record>
-
         <!-- Form View: Chi tiết Hãng Sản Xuất -->
         <record id="view_hang_san_xuat_form" model="ir.ui.view">
             <field name="name">hang_san_xuat_form</field>
@@ -29,7 +28,6 @@
                                 <field name="logo" widget="image" string="📸 Logo"/>
                             </group>
                         </group>
-
                         <!-- Tabs (Notebook) -->
                         <notebook>
                             <!-- Tab: Danh sách phương tiện -->
@@ -48,7 +46,6 @@
                 </form>
             </field>
         </record>
-
         <!-- Search View -->
         <record id="view_hang_san_xuat_search" model="ir.ui.view">
             <field name="name">hang_san_xuat_search</field>
@@ -60,12 +57,11 @@
                 </search>
             </field>
         </record>
-
         <!-- Action -->
         <record id="action_hang_san_xuat" model="ir.actions.act_window">
             <field name="name">🏭 Hãng Sản Xuất</field>
             <field name="res_model">hang_san_xuat</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref="view_hang_san_xuat_search"/>
             <field name="help">🔹 Quản lý danh sách hãng sản xuất phương tiện.</field>
         </record>

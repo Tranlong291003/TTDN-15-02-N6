@@ -74,7 +74,7 @@
         <record id="action_nha_cung_cap_bao_tri" model="ir.actions.act_window">
             <field name="name">🏢 Nhà Cung Cấp Bảo Trì</field>
             <field name="res_model">nha_cung_cap_bao_tri</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref="view_nha_cung_cap_bao_tri_search"/>
         </record>
     </data>

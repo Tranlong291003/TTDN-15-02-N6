@@ -62,7 +62,7 @@
     <record id="action_thue_xe" model="ir.actions.act_window">
       <field name="name">🚗 Quản Lý Thuê Xe</field>
       <field name="res_model">thue_xe</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,graph</field>
     </record>
   </data>
 </odoo>

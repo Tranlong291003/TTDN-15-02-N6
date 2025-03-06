@@ -77,7 +77,7 @@
         <record id="action_hop_dong_bao_hiem" model="ir.actions.act_window">
             <field name="name">📜 Quản Lý Hợp Đồng Bảo Hiểm</field>
             <field name="res_model">hop_dong_bao_hiem</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref="view_hop_dong_bao_hiem_search"/>
         </record>
     </data>

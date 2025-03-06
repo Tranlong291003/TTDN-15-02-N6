@@ -71,7 +71,7 @@
     <record id="action_cong_ty_bao_hiem" model="ir.actions.act_window">
       <field name="name">🏦 Công Ty Bảo Hiểm</field>
       <field name="res_model">cong_ty_bao_hiem</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,graph</field>
       <field name="search_view_id" ref="cong_ty_bao_hiem_search"/>
     </record>
   </data>

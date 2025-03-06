@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!-- 🌍 Menu Gốc -->
-        <menuitem id="menu_root" name="🚘 Quản Lý Điều Hành Giao Thông" sequence="0"/>
+        <menuitem id="menu_root" name="🚘 QLDHGT" sequence="0"/>
         <!-- 🚗 Quản lý phương tiện -->
         <menuitem id="menu_quan_ly_phuong_tien" name="🚗 Quản Lý Phương Tiện" parent="menu_root" sequence="1"/>
         <menuitem id="menu_phuong_tien" name="🚘 Danh Sách Phương Tiện" parent="menu_quan_ly_phuong_tien" sequence="1" action="action_phuong_tien"/>

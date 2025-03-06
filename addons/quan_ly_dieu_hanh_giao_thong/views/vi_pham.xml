@@ -25,23 +25,25 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <h1 class="oe_title" style="color: #e74c3c;">⚠️ Quản Lý Vi Phạm Giao Thông</h1>
-                        <group col="2" string="Thông tin vi phạm">
+                        <h1 class="oe_title" style="color: #e74c3c;">
+                            ⚠️ Quản Lý Vi Phạm Giao Thông
+                        </h1>
+                        <group col="2" string="📋 Thông tin vi phạm">
                             <group>
-                                <field name="violation_id" readonly="1"/>
-                                <field name="driver_id"/>
-                                <field name="vehicle_id"/>
-                                <field name="violation_type"/>
+                                <field name="violation_id" readonly="1" string="🆔 Mã Vi Phạm"/>
+                                <field name="driver_id" string="👤 Tài Xế"/>
+                                <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                                <field name="violation_type" string="⚠️ Loại Vi Phạm"/>
                             </group>
                             <group>
-                                <field name="violation_date"/>
-                                <field name="fine_amount"/>
-                                <field name="status" widget="selection"/>
+                                <field name="violation_date" string="📅 Ngày Vi Phạm"/>
+                                <field name="fine_amount" string="💰 Số Tiền Phạt"/>
+                                <field name="status" widget="selection" string="📌 Trạng Thái"/>
                             </group>
                         </group>
                         <notebook>
                             <!-- Tab Thông Tin Phương Tiện -->
-                            <page string="🚗 Phương Tiện">
+                            <page string="🚗 Thông Tin Phương Tiện">
                                 <group col="2">
                                     <group>
                                         <field name="vehicle_name" string="🚗 Tên Phương Tiện" readonly="1"/>
@@ -66,11 +68,11 @@
             <field name="model">vi_pham</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="violation_id"/>
-                    <field name="driver_id"/>
-                    <field name="vehicle_id"/>
-                    <field name="violation_type"/>
-                    <field name="status"/>
+                    <field name="violation_id" string="🆔 Mã Vi Phạm"/>
+                    <field name="driver_id" string="👤 Tài Xế"/>
+                    <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                    <field name="violation_type" string="⚠️ Loại Vi Phạm"/>
+                    <field name="status" string="📌 Trạng Thái"/>
                 </search>
             </field>
         </record>
@@ -78,7 +80,7 @@
         <record id="action_vi_pham" model="ir.actions.act_window">
             <field name="name">⚠️ Quản Lý Vi Phạm</field>
             <field name="res_model">vi_pham</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref="view_vi_pham_search"/>
         </record>
     </data>

@@ -84,7 +84,7 @@
         <record id="action_lich_trinh" model="ir.actions.act_window">
             <field name="name">📅 Quản Lý Lịch Trình</field>
             <field name="res_model">lich_trinh</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref="view_lich_trinh_search"/>
         </record>
     </data>
