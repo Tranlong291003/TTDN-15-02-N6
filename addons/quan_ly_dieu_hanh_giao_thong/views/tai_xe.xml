@@ -51,7 +51,7 @@
                                         <field name="license_plate" string="🏷 Biển Số Xe"/>
                                         <field name="vehicle_type" string="🚘 Loại Xe"/>
                                         <field name="mileage" string="📏 Số Km"/>
-                                        <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
+                                        <field name="status" string="📌 Trạng Thái" />
                                     </tree>
                                 </field>
                             </page>

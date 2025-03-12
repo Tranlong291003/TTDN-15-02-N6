@@ -25,6 +25,12 @@
                             </group>
                         </group>
                         <group col="2">
+                            <group col="2">
+                                <group string="🚗 Thông Tin Người Sử Dụng">
+                                    <field name="last_customer_name" string="👤 Khách Hàng Gần Nhất" readonly="1"/>
+                                    <field name="last_rental_id" string="📜 Hợp Đồng Thuê Xe Gần Nhất" readonly="1"/>
+                                </group>
+                            </group>
                             <group string="🖼 Hình ảnh phương tiện">
                                 <field name="image" widget="image" class="oe_center" style="width: 200px; height: auto;"/>
                             </group>
@@ -87,7 +93,7 @@
                                         <field name="violation_type" string="⚠️ Loại Vi Phạm"/>
                                         <field name="violation_date" string="📅 Ngày Vi Phạm"/>
                                         <field name="fine_amount" string="💰 Số Tiền Phạt"/>
-                                        <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
+                                        <field name="status" string="📌 Trạng Thái"/>
                                     </tree>
                                 </field>
                             </page>
@@ -97,12 +103,12 @@
                                         <field name="rental_id" string="🆔 Mã Thuê Xe"/>
                                         <field name="customer_name" string="👤 Tên Khách Hàng"/>
                                         <field name="customer_phone" string="📞 SĐT Khách Hàng"/>
-                                        <field name="vehicle_id" string="🚗 Phương Tiện"/>
                                         <field name="rental_start" string="📅 Ngày Bắt Đầu"/>
-                                        <field name="rental_end" string="📅 Ngày kết thúc"/>
+                                        <field name="rental_end" string="🏁 Ngày Kết Thúc"/>
+                                        <!-- Sử dụng icon cờ đích để phân biệt với ngày bắt đầu -->
                                         <field name="rental_days" string="📆 Số Ngày Thuê"/>
-                                        <field name="total_price" string="💵 Tổng Tiền"/>
-                                        <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
+                                        <field name="total_price" string="💰 Tổng Tiền"/>
+                                        <field name="status" string="📌 Trạng Thái" />
                                     </tree>
                                 </field>
                             </page>
