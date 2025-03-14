@@ -8,35 +8,37 @@
                 <form>
                     <sheet>
                         <h1 class="oe_title" style="color: #3498db;">🚗 Quản Lý Phương Tiện</h1>
+                        <!-- Thông tin chung -->
                         <group col="2" string="Thông tin chung">
                             <group>
                                 <field name="vehicle_id" string="🆔 Mã Phương Tiện"/>
                                 <field name="name" string="🚘 Tên Phương Tiện"/>
                                 <field name="license_plate" string="🏷 Biển Số"/>
                                 <field name="vehicle_type" string="🚖 Loại Xe" widget="statusbar" options="{'clickable': '1'}"/>
-                                <field name="status" string="📌 Trạng Thái" widget="statusbar" options="{'clickable': '1'}"/>
                             </group>
                             <group>
                                 <field name="mileage" string="📏 Số Km"/>
                                 <field name="manufacture_year" string="🏭 Năm Sản Xuất"/>
                                 <field name="manufacturer_id" string="🏢 Hãng Sản Xuất"/>
-                                <field name="driver_id" string="👨‍✈️ Tài Xế"/>
-                                <field name="daily_rental_rate" string="💰 Giá Thuê Ngày"/>
+                                <field name="status" string="📌 Trạng Thái" widget="statusbar" options="{'clickable': '1'}"/>
                             </group>
                         </group>
-                        <group col="2">
-                            <group col="2">
-                                <group string="🚗 Thông Tin Người Sử Dụng">
-                                    <field name="last_customer_name" string="👤 Khách Hàng Gần Nhất" readonly="1"/>
-                                    <field name="last_rental_id" string="📜 Hợp Đồng Thuê Xe Gần Nhất" readonly="1"/>
-                                </group>
-                            </group>
-                            <group string="🖼 Hình ảnh phương tiện">
+                        <!-- Thông tin phương tiện -->
+                        <group col="2" string="Thông tin phương tiện">
+                            <group>
+                                <field name="color" string="🎨 Màu Sắc"/>
+                                <field name="engine_capacity" string="🔋 Dung Tích Động Cơ"/>
+                                <field name="created_at" string="📅 Ngày Tạo" readonly="1"/>
                                 <field name="image" widget="image" class="oe_center" style="width: 200px; height: auto;"/>
                             </group>
+                            <group>
+                                <field name="seats" string="🪑 Số chỗ ngồi"/>
+                                <field name="driver_id" string="👨‍✈️ Tài Xế"/>
+                                <field name="updated_at" string="📅 Ngày Cập Nhật" readonly="1"/>
+                            </group>
                         </group>
+                        <!-- Tabs: Bảo trì, Lịch trình, Nhiên liệu, Hợp đồng bảo hiểm, Vi phạm giao thông, Hợp đồng thuê xe -->
                         <notebook>
-                            <!-- Tab Bảo Trì -->
                             <page string="🛠️ Bảo Trì">
                                 <field name="bao_tri_ids">
                                     <tree editable="bottom">
@@ -77,7 +79,7 @@
                                 <field name="hop_dong_bao_hiem_ids">
                                     <tree editable="bottom">
                                         <field name="contract_id" string="🆔 Mã Hợp Đồng"/>
-                                        <field name="insurance_package_id" string="📜 Gói Bảo Hiểm" />
+                                        <field name="insurance_package_id" string="📜 Gói Bảo Hiểm"/>
                                         <field name="contract_start" string="📅 Ngày Bắt Đầu"/>
                                         <field name="contract_end" string="📅 Ngày Kết Thúc"/>
                                         <field name="insurance_price" string="💰 Giá Bảo Hiểm"/>
@@ -105,10 +107,9 @@
                                         <field name="customer_phone" string="📞 SĐT Khách Hàng"/>
                                         <field name="rental_start" string="📅 Ngày Bắt Đầu"/>
                                         <field name="rental_end" string="🏁 Ngày Kết Thúc"/>
-                                        <!-- Sử dụng icon cờ đích để phân biệt với ngày bắt đầu -->
                                         <field name="rental_days" string="📆 Số Ngày Thuê"/>
                                         <field name="total_price" string="💰 Tổng Tiền"/>
-                                        <field name="status" string="📌 Trạng Thái" />
+                                        <field name="status" string="📌 Trạng Thái"/>
                                     </tree>
                                 </field>
                             </page>

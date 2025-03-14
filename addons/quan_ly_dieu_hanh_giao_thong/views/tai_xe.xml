@@ -6,9 +6,9 @@
             <field name="name">tai_xe_tree</field>
             <field name="model">tai_xe</field>
             <field name="arch" type="xml">
-                <tree decoration-success="experience &gt;= 5" 
-                      decoration-warning="experience &gt;= 2 and experience &lt; 5"
-                      decoration-danger="experience &lt; 2">
+                <tree decoration-success="experience == '3+'" 
+                      decoration-warning="experience == '2-3'"
+                      decoration-danger="experience == '1-2'">
                     <field name="driver_id" string="🆔 Mã TX"/>
                     <field name="name" string="👤 Họ Tên"/>
                     <field name="phone" string="📞 SĐT"/>
@@ -16,6 +16,7 @@
                     <field name="license_number" string="🚘 Bằng Lái"/>
                     <field name="experience" string="🏎️ Kinh Nghiệm"/>
                     <field name="rating" string="⭐ Đánh Giá"/>
+                    <field name="status" string="📌 Trạng Thái"/>
                 </tree>
             </field>
         </record>
@@ -27,21 +28,23 @@
                 <form>
                     <sheet>
                         <h1 class="oe_title" style="color: #3498db;">🚛 Quản Lý Tài Xế</h1>
+                        <!-- General Information Group -->
                         <group col="2" string="Thông tin tài xế">
                             <group>
                                 <field name="driver_id" readonly="1"/>
                                 <field name="name"/>
                                 <field name="license_number" string="🚘 Bằng Lái"/>
-                                <field name="license_issue_date"/>
-                                <field name="license_expiry_date"/>
+                                <field name="dob" string="Ngày sinh"/>
                             </group>
                             <group>
                                 <field name="phone"/>
                                 <field name="email"/>
                                 <field name="experience" string="🏎️ Kinh Nghiệm"/>
                                 <field name="rating" string="⭐ Đánh Giá"/>
+                                <field name="status" string="📌 Trạng Thái"/>
                             </group>
                         </group>
+                        <!-- Vehicle Management Tab -->
                         <notebook>
                             <page string="🚗 Phương Tiện Phụ Trách">
                                 <field name="phuong_tien_ids">
@@ -51,7 +54,7 @@
                                         <field name="license_plate" string="🏷 Biển Số Xe"/>
                                         <field name="vehicle_type" string="🚘 Loại Xe"/>
                                         <field name="mileage" string="📏 Số Km"/>
-                                        <field name="status" string="📌 Trạng Thái" />
+                                        <field name="status" string="📌 Trạng Thái"/>
                                     </tree>
                                 </field>
                             </page>
@@ -72,6 +75,8 @@
                     <field name="email"/>
                     <field name="license_number"/>
                     <field name="experience"/>
+                    <field name="rating"/>
+                    <field name="status"/>
                 </search>
             </field>
         </record>

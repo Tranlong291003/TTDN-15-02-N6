@@ -9,7 +9,8 @@ class PhuongTien(models.Model):
         string='🆔 Mã Phương Tiện', 
         required=True, 
         copy=False, 
-        index=True
+        index=True,
+        unique=True
     )
     
     name = fields.Char(string='🚘 Tên Phương Tiện', required=True)
@@ -29,13 +30,78 @@ class PhuongTien(models.Model):
         ('broken', 'Hỏng hóc')
     ], string='📌 Trạng Thái', default='available')
 
-    daily_rental_rate = fields.Float(string="💵 Giá Thuê/Ngày", required=True, default=0.0)
+    # Cập nhật giá thuê ngày với tiền tệ VNĐ
+    currency_id = fields.Many2one(
+        'res.currency', 
+        string='Currency', 
+        default=lambda self: self.env.company.currency_id
+    )
+    daily_rental_rate = fields.Monetary(
+        string="💵 Giá Thuê/Ngày", 
+        required=True, 
+        default=0.0, 
+        currency_field='currency_id'
+    )
+    
     mileage = fields.Float(string='📏 Số km đã đi')
 
     manufacturer_id = fields.Many2one('hang_san_xuat', string='🏭 Hãng sản xuất', required=True)
     manufacturer_name = fields.Char(related='manufacturer_id.name', string='Tên hãng sản xuất', store=True, readonly=True)
 
     image = fields.Binary(string='🖼 Hình ảnh phương tiện')
+
+    # Thêm các trường mới
+    color = fields.Selection(
+        [
+            ('red', 'Đỏ'),
+            ('blue', 'Xanh dương'),
+            ('green', 'Xanh lá'),
+            ('black', 'Đen'),
+            ('white', 'Trắng'),
+            ('yellow', 'Vàng'),
+        ],
+        string='🎨 Màu sắc phương tiện', 
+        required=True
+    )
+    
+    engine_capacity = fields.Selection(
+        [
+            ('1000', '1.0L'),
+            ('1500', '1.5L'),
+            ('2000', '2.0L'),
+            ('2500', '2.5L'),
+            ('3000', '3.0L'),
+        ],
+        string="🔋 Dung tích động cơ (CC)",
+        required=True
+    )
+
+    # Thêm trường số chỗ ngồi
+    seats = fields.Selection(
+        [
+            ('2', '2 chỗ'),
+            ('4', '4 chỗ'),
+            ('5', '5 chỗ'),
+            ('7', '7 chỗ'),
+            ('15', '15 chỗ'),
+            ('30', '30 chỗ'),
+            ('50', '50 chỗ'),
+        ],
+        string="🪑 Số chỗ ngồi", 
+        required=True
+    )
+
+    created_at = fields.Datetime(
+        string='📅 Ngày tạo phương tiện', 
+        default=fields.Datetime.now,
+        readonly=True  # Trường này chỉ được cập nhật khi tạo mới
+    )
+
+    updated_at = fields.Datetime(
+        string='📅 Ngày cập nhật phương tiện', 
+        default=fields.Datetime.now, 
+        track_visibility='onchange'
+    )
 
     thue_xe_ids = fields.One2many('thue_xe', 'vehicle_id', string="📜 Hợp Đồng Thuê Xe")
     lich_trinh_ids = fields.One2many('lich_trinh', 'vehicle_id', string="📅 Lịch Trình")
@@ -57,14 +123,12 @@ class PhuongTien(models.Model):
         store=True
     )
 
-
     last_customer_name = fields.Char(
         string="👤 Khách Hàng Gần Nhất",
         related="last_rental_id.customer_name",
         store=True
     )
 
-    # ✅ Tự động cập nhật tài xế từ lịch trình mới nhất hoặc hợp đồng thuê xe mới nhất
     driver_id = fields.Many2one(
         'tai_xe', 
         string="👨‍✈️ Tài Xế",
@@ -74,10 +138,7 @@ class PhuongTien(models.Model):
 
     @api.depends('lich_trinh_ids.start_time', 'thue_xe_ids.rental_start')
     def _compute_driver(self):
-        """ 
-        ✅ Ưu tiên lấy tài xế từ lịch trình mới nhất.
-        ✅ Nếu không có lịch trình, lấy tài xế từ hợp đồng thuê xe gần nhất.
-        """
+        """ Ưu tiên lấy tài xế từ lịch trình mới nhất. Nếu không có lịch trình, lấy tài xế từ hợp đồng thuê xe gần nhất. """
         for record in self:
             last_schedule = record.lich_trinh_ids.sorted(lambda r: r.start_time, reverse=True)[:1]
             if last_schedule:
@@ -89,10 +150,9 @@ class PhuongTien(models.Model):
     @api.depends('thue_xe_ids.rental_start')
     def _compute_last_rental(self):
         for record in self:
-            valid_rentals = record.thue_xe_ids.filtered(lambda r: r.rental_start)  # Lọc các bản ghi có rental_start hợp lệ
+            valid_rentals = record.thue_xe_ids.filtered(lambda r: r.rental_start)
             last_rental = valid_rentals.sorted(lambda r: r.rental_start, reverse=True)[:1]
             record.last_rental_id = last_rental.id if last_rental else False
-
 
     _sql_constraints = [
         ('vehicle_id_uniq', 'unique(vehicle_id)', '🆔 Mã Phương Tiện không được trùng!'),

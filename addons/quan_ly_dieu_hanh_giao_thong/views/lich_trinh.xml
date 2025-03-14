@@ -11,10 +11,12 @@
                       decoration-warning="status == 'pending'">
                     <field name="schedule_id" string="🆔 Mã Lịch Trình"/>
                     <field name="vehicle_id" string="🚗 Phương Tiện"/>
-                    <field name="driver_id" string="👤 Tài Xế"/>
+                    <field name="driver_id" string="👨‍✈️ Tài Xế"/>
                     <field name="start_time" string="⏳ Thời Gian Bắt Đầu"/>
                     <field name="end_time" string="🏁 Thời Gian Kết Thúc"/>
+                    <field name="purpose" string="🎯 Mục Đích"/>
                     <field name="status" string="📌 Trạng Thái" widget="statusbar"/>
+                    <field name="updated_at" string="📝 Ngày Cập Nhật"/>
                 </tree>
             </field>
         </record>
@@ -26,26 +28,31 @@
                 <form>
                     <sheet>
                         <h1 class="oe_title" style="color: #3498db;">📅 Quản Lý Lịch Trình</h1>
+                        <!-- Thông tin lịch trình -->
                         <group col="2" string="Thông tin lịch trình">
                             <group>
-                                <field name="schedule_id" readonly="1"/>
                                 <field name="status" widget="selection"/>
-                                <field name="vehicle_id"/>
+                                <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                                <field name="purpose" string="🎯 Mục Đích"/>
                             </group>
                             <group>
-                                <field name="driver_id"/>
+                                <field name="driver_id" string="👨‍✈️ Tài Xế"/>
                                 <field name="start_location" string="📍 Điểm Bắt Đầu"/>
                                 <field name="end_location" string="📌 Điểm Kết Thúc"/>
                             </group>
                         </group>
+                        <!-- Thời gian -->
                         <group col="2" string="Thời gian">
                             <group>
                                 <field name="start_time" string="⏳ Bắt Đầu"/>
+                                <field name="created_at" string="📅 Ngày Tạo" readonly="1"/>
                             </group>
                             <group>
-                                <field name="end_time" string="🏁  Kết Thúc"/>
+                                <field name="end_time" string="🏁 Kết Thúc"/>
+                                <field name="updated_at" string="📝 Ngày Cập Nhật" readonly="1"/>
                             </group>
                         </group>
+                        <!-- Thông tin phương tiện -->
                         <notebook>
                             <page string="🚗 Phương Tiện">
                                 <group col="2">
@@ -72,11 +79,13 @@
             <field name="model">lich_trinh</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="vehicle_id"/>
-                    <field name="driver_id"/>
-                    <field name="start_time"/>
-                    <field name="end_time"/>
-                    <field name="status"/>
+                    <field name="schedule_id"/>
+                    <field name="vehicle_id" string="🚗 Phương Tiện"/>
+                    <field name="driver_id" string="👨‍✈️ Tài Xế"/>
+                    <field name="start_time" string="⏳ Thời Gian Bắt Đầu"/>
+                    <field name="end_time" string="🏁 Thời Gian Kết Thúc"/>
+                    <field name="status" string="📌 Trạng Thái"/>
+                    <field name="purpose" string="🎯 Mục Đích"/>
                 </search>
             </field>
         </record>

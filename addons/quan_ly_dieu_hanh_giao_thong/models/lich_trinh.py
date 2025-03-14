@@ -6,6 +6,7 @@ class LichTrinh(models.Model):
     _name = 'lich_trinh'
     _description = '📅 Quản lý Lịch Trình'
 
+    # Thông tin lịch trình
     schedule_id = fields.Char(
         string='🆔 Mã Lịch Trình',
         required=True,
@@ -15,9 +16,11 @@ class LichTrinh(models.Model):
         default=lambda self: self._generate_schedule_id()
     )
 
+    # Liên kết với phương tiện và tài xế
     vehicle_id = fields.Many2one('phuong_tien', string='🚗 Phương Tiện', required=True)
     driver_id = fields.Many2one('tai_xe', string='👨‍✈️ Tài Xế', required=True)
 
+    # Các thông tin liên quan đến phương tiện
     vehicle_name = fields.Char(related='vehicle_id.name', store=True, string="Tên Phương Tiện")
     vehicle_license_plate = fields.Char(related='vehicle_id.license_plate', store=True, string="Biển Số")
     vehicle_type = fields.Selection(related='vehicle_id.vehicle_type', store=True, string="Loại Xe")
@@ -25,19 +28,41 @@ class LichTrinh(models.Model):
     vehicle_manufacturer = fields.Many2one(related='vehicle_id.manufacturer_id', store=True, string="Hãng Sản Xuất")
     vehicle_mileage = fields.Float(related='vehicle_id.mileage', store=True, string="Số Km Đã Đi")
 
+    # Thời gian và địa điểm
     start_time = fields.Datetime(string='⏰ Thời Gian Xuất Phát', required=True)
     end_time = fields.Datetime(string='🏁 Thời Gian Về', required=True)
 
     start_location = fields.Char(string='📍 Địa Điểm Xuất Phát', required=True)
     end_location = fields.Char(string='📌 Đích Đến', required=True)
 
+    # Mục đích sử dụng phương tiện (Selection)
+    purpose = fields.Selection([
+        ('work', 'Công việc'),
+        ('transportation', 'Vận chuyển'),
+        ('other', 'Khác')
+    ], string='Mục Đích Sử Dụng', required=True)
+
+    # Trạng thái lịch trình
     status = fields.Selection([
         ('pending', '⏳ Chưa Bắt Đầu'),
         ('in_progress', '🚗 Đang Thực Hiện'),
         ('completed', '✅ Đã Hoàn Thành')
     ], string='📊 Trạng Thái', default='pending')
 
+    # Ghi chú
     notes = fields.Text(string='📝 Ghi Chú Hành Trình')
+
+    # Tự động điền thời gian tạo và cập nhật
+    created_at = fields.Datetime(
+        string='Ngày tạo lịch trình',
+        default=fields.Datetime.now,
+        readonly=True
+    )
+    updated_at = fields.Datetime(
+        string='Ngày cập nhật lịch trình',
+        default=fields.Datetime.now,
+        track_visibility='onchange'
+    )
 
     _sql_constraints = [
         ('schedule_id_uniq', 'unique(schedule_id)', '🆔 Mã Lịch Trình không được trùng! Vui lòng nhập lại.')
@@ -73,7 +98,9 @@ class LichTrinh(models.Model):
 
     @api.model
     def create(self, vals):
-        """ ✅ Kiểm tra điều kiện trước khi tạo lịch trình """
+        """ ✅ Kiểm tra điều kiện trước khi tạo lịch trình chỉ khi lần đầu """
+        if 'schedule_id' not in vals or not vals['schedule_id']:
+            vals['schedule_id'] = self._generate_schedule_id()  # Chỉ tạo mã lịch trình khi lần đầu tạo
         new_record = super(LichTrinh, self).create(vals)
         new_record._check_schedule_dates()
         return new_record
