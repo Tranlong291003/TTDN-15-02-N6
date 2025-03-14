@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data>
     <!-- Dashboard View for Báo Cáo Tổng Hợp -->
@@ -10,7 +9,6 @@
           <templates>
             <t t-name="kanban-box">
               <div class="o_kanban_record">
-                <!-- Biểu tượng của Dashboard -->
                 <div class="o_kanban_image">
                   <span class="fa fa-chart-line fa-3x text-primary" title="Biểu đồ tổng hợp"></span>
                 </div>
@@ -18,7 +16,6 @@
                   <strong>📊 Báo Cáo Tổng Hợp</strong>
                 </div>
               </div>
-              <!-- Thống kê các chỉ số -->
               <div class="o_kanban_stats">
                 <div class="o_stat_box bg-primary">
                   <span class="o_stat_text">📅 Tổng Đơn Thuê</span>
@@ -45,40 +42,44 @@
                   </span>
                 </div>
                 <div class="o_stat_box bg-danger">
-                  <span class="o_stat_text">⚠️ Tổng Vi Phạm</span>
+                  <span class="o_stat_text">⚠️ Xe Hỏng Hóc</span>
                   <span class="o_stat_value">
-                    <field name="total_violations"/>
+                    <field name="broken_vehicles"/>
+                  </span>
+                </div>
+                <div class="o_stat_box bg-secondary">
+                  <span class="o_stat_text">🛠️ Xe Bảo Trì</span>
+                  <span class="o_stat_value">
+                    <field name="maintenance_vehicles"/>
+                  </span>
+                </div>
+                <div class="o_stat_box bg-dark">
+                  <span class="o_stat_text">👨‍✈️ Tổng Số Tài Xế</span>
+                  <span class="o_stat_value">
+                    <field name="total_drivers"/>
                   </span>
                 </div>
               </div>
-              <!-- Các biểu đồ -->
               <div class="o_dashboard_charts">
-                <!-- Pie Chart for Vehicle Status -->
                 <div class="o_chart_pie">
                   <field name="chart_pie_vehicles"/>
                 </div>
-                <!-- Bar Chart for Vehicle Types -->
                 <div class="o_chart_bar">
                   <field name="chart_bar_types"/>
                 </div>
-                <!-- Line Chart for Revenue & Rentals over Time -->
-                <!-- <div class="o_chart_line">
-                  <field name="chart_line_revenue"/>
-                </div> -->
               </div>
             </t>
           </templates>
         </kanban>
       </field>
     </record>
-    <!-- Action for Báo Cáo Tổng Hợp Dashboard -->
     <record id="action_bao_cao_tong_hop_dashboard" model="ir.actions.act_window">
       <field name="name">📊 Dashboard Báo Cáo Tổng Hợp</field>
       <field name="res_model">bao_cao.tong_hop</field>
       <field name="view_mode">kanban</field>
       <field name="view_id" ref="view_bao_cao_tong_hop_dashboard"/>
       <field name="help" type="html">
-        <p>Dashboard tổng hợp các thông tin về thuê xe, doanh thu, số lượng phương tiện và tài xế.</p>
+        <p>Dashboard tổng hợp các thông tin về thuê xe, doanh thu, số lượng phương tiện, tài xế và các vấn đề liên quan đến bảo trì, vi phạm.</p>
       </field>
     </record>
   </data>

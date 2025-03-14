@@ -22,7 +22,6 @@ class TaiXe(models.Model):
     # Các trường còn lại
     dob = fields.Date(string='Ngày sinh', required=True)
     license_number = fields.Char(string='Số giấy phép lái xe', required=True, unique=True)
-    hire_date = fields.Date(string='Ngày tuyển dụng', required=True)
     
     phone = fields.Char(string='Số điện thoại')
     email = fields.Char(string='Email')
