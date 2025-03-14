@@ -15,6 +15,9 @@ class BaoCaoTongHop(models.Model):
     total_maintenance_cost = fields.Float(string="💰 Chi Phí Bảo Trì")
     total_drivers = fields.Integer(string="👨‍✈️ Tổng Số Tài Xế")
 
+    chart_pie_vehicles = fields.Char(string="Chart Pie")
+    chart_bar_types = fields.Char(string="Chart Bar")
+
     @api.model
     def init(self):
         """ Tạo view SQL để tổng hợp dữ liệu báo cáo """
@@ -30,6 +33,30 @@ class BaoCaoTongHop(models.Model):
                     (SELECT COUNT(*) FROM phuong_tien WHERE status = 'maintenance') AS maintenance_vehicles,
                     (SELECT COUNT(*) FROM vi_pham) AS total_violations,
                     (SELECT SUM(cost) FROM bao_tri) AS total_maintenance_cost,
-                    (SELECT COUNT(*) FROM tai_xe) AS total_drivers
+                    (SELECT COUNT(*) FROM tai_xe) AS total_drivers,
+                    '{}' AS chart_pie_vehicles,  -- Placeholder for pie chart data
+                    '{}' AS chart_bar_types  -- Placeholder for bar chart data
             )
         """)
+        # Update chart fields after initializing the data
+        self.update_charts()
+
+    def update_charts(self):
+        """ Update pie and bar chart data with dynamic values. """
+        # Create data for Pie Chart: Available, Rented, and Maintenance vehicles
+        pie_chart_data = {
+            'available': self.available_vehicles,
+            'rented': self.rented_vehicles,
+            'maintenance': self.maintenance_vehicles,
+        }
+
+        # Create data for Bar Chart: Type 1 for Total Vehicles, Type 2 for Total Drivers
+        bar_chart_data = {
+            'Type 1': self.total_vehicles,
+            'Type 2': self.total_drivers,
+        }
+
+        # Convert dictionary data to string (could use JSON or a custom format)
+        self.chart_pie_vehicles = str(pie_chart_data)
+        self.chart_bar_types = str(bar_chart_data)
+

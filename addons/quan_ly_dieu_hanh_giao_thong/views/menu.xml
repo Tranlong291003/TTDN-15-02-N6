@@ -23,6 +23,6 @@
         <menuitem id="menu_nha_cung_cap_bao_tri" name="🔧 Nhà Cung Cấp Bảo Trì" parent="menu_quan_ly_ncc" sequence="1" action="action_nha_cung_cap_bao_tri"/>
         <menuitem id="menu_cong_ty_bao_hiem" name="🏦 Công Ty Bảo Hiểm" parent="menu_quan_ly_ncc" sequence="2" action="action_cong_ty_bao_hiem"/>
         <!-- 📊 Báo Cáo Tổng Hợp -->
-        <menuitem id="menu_bao_cao_tong_hop" name="📊 Báo Cáo Tổng Hợp" parent="menu_root" sequence="20" action="action_bao_cao_tong_hop"/>
+        <menuitem id="menu_bao_cao_tong_hop" name="📊 Báo Cáo Tổng Hợp" parent="menu_root" sequence="20" action="action_bao_cao_tong_hop_dashboard"/>
     </data>
 </odoo>
