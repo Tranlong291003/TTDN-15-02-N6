@@ -30,33 +30,76 @@ class PhuongTien(models.Model):
         ('broken', 'Hỏng hóc')
     ], string='📌 Trạng Thái', default='available')
 
-    # Cập nhật giá thuê ngày với tiền tệ VNĐ
-    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
-    daily_rental_rate = fields.Monetary(string="💵 Giá Thuê/Ngày", required=True, default=0.0, currency_field='currency_id')
-
+    currency_id = fields.Many2one(
+        'res.currency', 
+        string='Currency', 
+        default=lambda self: self.env.company.currency_id
+    )
+    daily_rental_rate = fields.Monetary(
+        string="💵 Giá Thuê/Ngày", 
+        required=True, 
+        default=0.0, 
+        currency_field='currency_id'
+    )
+    
     mileage = fields.Float(string='📏 Số km đã đi')
+
     manufacturer_id = fields.Many2one('hang_san_xuat', string='🏭 Hãng sản xuất', required=True)
     manufacturer_name = fields.Char(related='manufacturer_id.name', string='Tên hãng sản xuất', store=True, readonly=True)
 
     image = fields.Binary(string='🖼 Hình ảnh phương tiện')
 
-    # Các trường mới
-    color = fields.Selection([('red', 'Đỏ'), ('blue', 'Xanh dương'), ('green', 'Xanh lá'), 
-                              ('black', 'Đen'), ('white', 'Trắng'), ('yellow', 'Vàng')],
-                             string='🎨 Màu sắc phương tiện', required=True)
+    color = fields.Selection(
+        [
+            ('red', 'Đỏ'),
+            ('blue', 'Xanh dương'),
+            ('green', 'Xanh lá'),
+            ('black', 'Đen'),
+            ('white', 'Trắng'),
+            ('yellow', 'Vàng'),
+        ],
+        string='🎨 Màu sắc phương tiện', 
+        required=True
+    )
+    
+    engine_capacity = fields.Selection(
+        [
+            ('1000', '1.0L'),
+            ('1500', '1.5L'),
+            ('2000', '2.0L'),
+            ('2500', '2.5L'),
+            ('3000', '3.0L'),
+        ],
+        string="🔋 Dung tích động cơ (CC)",
+        required=True
+    )
 
-    engine_capacity = fields.Selection([('1000', '1.0L'), ('1500', '1.5L'), ('2000', '2.0L'), 
-                                        ('2500', '2.5L'), ('3000', '3.0L')],
-                                       string="🔋 Dung tích động cơ (CC)", required=True)
+    seats = fields.Selection(
+        [
+            ('2', '2 chỗ'),
+            ('4', '4 chỗ'),
+            ('5', '5 chỗ'),
+            ('7', '7 chỗ'),
+            ('15', '15 chỗ'),
+            ('30', '30 chỗ'),
+            ('50', '50 chỗ'),
+        ],
+        string="🪑 Số chỗ ngồi", 
+        required=True
+    )
 
-    seats = fields.Selection([('2', '2 chỗ'), ('4', '4 chỗ'), ('5', '5 chỗ'), ('7', '7 chỗ'),
-                              ('15', '15 chỗ'), ('30', '30 chỗ'), ('50', '50 chỗ')],
-                             string="🪑 Số chỗ ngồi", required=True)
+    created_at = fields.Datetime(
+        string='📅 Ngày tạo phương tiện', 
+        default=fields.Datetime.now,
+        readonly=True
+    )
 
-    created_at = fields.Datetime(string='📅 Ngày tạo phương tiện', default=fields.Datetime.now, readonly=True)
-    updated_at = fields.Datetime(string='📅 Ngày cập nhật phương tiện', default=fields.Datetime.now, track_visibility='onchange')
+    updated_at = fields.Datetime(
+        string='📅 Ngày cập nhật phương tiện', 
+        default=fields.Datetime.now, 
+        track_visibility='onchange'
+    )
 
-    # Các trường liên kết với các model khác
     thue_xe_ids = fields.One2many('thue_xe', 'vehicle_id', string="📜 Hợp Đồng Thuê Xe")
     lich_trinh_ids = fields.One2many('lich_trinh', 'vehicle_id', string="📅 Lịch Trình")
     bao_tri_ids = fields.One2many('bao_tri', 'vehicle_id', string="🛠️ Lịch Sử Bảo Trì")
@@ -92,7 +135,6 @@ class PhuongTien(models.Model):
 
     @api.depends('lich_trinh_ids.start_time', 'thue_xe_ids.rental_start')
     def _compute_driver(self):
-        """ Ưu tiên lấy tài xế từ lịch trình mới nhất. Nếu không có lịch trình, lấy tài xế từ hợp đồng thuê xe gần nhất. """
         for record in self:
             last_schedule = record.lich_trinh_ids.sorted(lambda r: r.start_time, reverse=True)[:1]
             if last_schedule:
@@ -113,11 +155,12 @@ class PhuongTien(models.Model):
         ('license_plate_uniq', 'unique(license_plate)', '🚗 Biển số xe không được trùng!')
     ]
 
+    @api.model
     def create(self, vals):
-        # Tạo phương tiện mới
+        """ Ghi lại thao tác tạo phương tiện vào lịch sử """
         new_vehicle = super(PhuongTien, self).create(vals)
 
-        # Ghi lại thao tác vào lịch sử
+        # Ghi lại thao tác tạo phương tiện vào lịch sử
         self.env['lich_su_thao_tac'].create({
             'model_name': 'phuong_tien',
             'record_id': new_vehicle.id,
@@ -130,11 +173,17 @@ class PhuongTien(models.Model):
         return new_vehicle
 
     def write(self, vals):
-        # Ghi lại thao tác vào lịch sử khi sửa phương tiện
+        """ Ghi lại thao tác sửa phương tiện vào lịch sử """
         result = super(PhuongTien, self).write(vals)
 
-        # Ghi lại thao tác sửa phương tiện vào lịch sử
+        # Cập nhật trường updated_at khi có sự thay đổi
         for record in self:
+            # Cập nhật ngày giờ hiện tại vào trường updated_at
+            if 'updated_at' not in vals:
+              # Cập nhật trường 'updated_at' mà không gọi lại 'write'
+                record.updated_at = fields.Datetime.now()
+
+            # Ghi lại thao tác sửa phương tiện vào lịch sử
             self.env['lich_su_thao_tac'].create({
                 'model_name': 'phuong_tien',
                 'record_id': record.id,
@@ -143,10 +192,11 @@ class PhuongTien(models.Model):
                 'user_id': self.env.user.id,
                 'action_date': fields.Datetime.now(),
             })
+
         return result
 
     def unlink(self):
-        # Ghi lại thao tác vào lịch sử khi xóa phương tiện
+        """ Ghi lại thao tác xóa phương tiện vào lịch sử """
         for record in self:
             self.env['lich_su_thao_tac'].create({
                 'model_name': 'phuong_tien',
@@ -156,5 +206,5 @@ class PhuongTien(models.Model):
                 'user_id': self.env.user.id,
                 'action_date': fields.Datetime.now(),
             })
-        
+
         return super(PhuongTien, self).unlink()
