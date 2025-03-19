@@ -107,6 +107,13 @@ class PhuongTien(models.Model):
     hop_dong_bao_hiem_ids = fields.One2many('hop_dong_bao_hiem', 'vehicle_id', string="📜 Hợp Đồng Bảo Hiểm")
     vi_pham_ids = fields.One2many('vi_pham', 'vehicle_id', string="⚠️ Vi phạm")
 
+    completed_schedule_ids = fields.One2many(
+        'lich_trinh', 
+        'vehicle_id', 
+        string="📅 Lịch Trình Đã Hoàn Thành", 
+        compute='_compute_completed_schedules'
+    )
+
     manufacture_year = fields.Selection(
         [(str(year), str(year)) for year in range(datetime.now().year, 1979, -1)],
         string='🏭 Năm sản xuất',
@@ -154,7 +161,12 @@ class PhuongTien(models.Model):
         ('vehicle_id_uniq', 'unique(vehicle_id)', '🆔 Mã Phương Tiện không được trùng!'),
         ('license_plate_uniq', 'unique(license_plate)', '🚗 Biển số xe không được trùng!')
     ]
-
+    @api.depends('lich_trinh_ids.status')
+    def _compute_completed_schedules(self):
+        for record in self:
+            # Lọc các lịch trình có trạng thái "completed"
+            completed_schedules = self.env['lich_trinh'].search([('status', '=', 'completed'), ('vehicle_id', '=', record.id)])
+            record.completed_schedule_ids = completed_schedules
     @api.model
     def create(self, vals):
         """ Ghi lại thao tác tạo phương tiện vào lịch sử """

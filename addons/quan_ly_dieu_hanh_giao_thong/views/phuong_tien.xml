@@ -41,25 +41,25 @@
                         <notebook>
                             <page string="🛠️ Bảo Trì">
                                 <field name="bao_tri_ids">
-                                    <tree editable="bottom">
-                                        <field name="maintenance_date" string="📅 Ngày Bảo Trì"/>
-                                        <field name="maintenance_type" string="📑 Loại Bảo Trì"/>
-                                        <field name="service_provider_id" string="🏢 Nhà Cung Cấp"/>
-                                        <field name="cost" string="💰 Chi Phí"/>
-                                        <field name="next_maintenance" string="📅 Lịch Bảo Trì Tiếp Theo"/>
+                                    <tree editable="false">
+                                        <field name="maintenance_date" string="📅 Ngày Bảo Trì" readonly="1"/>
+                                        <field name="maintenance_type" string="📑 Loại Bảo Trì" readonly="1"/>
+                                        <field name="service_provider_id" string="🏢 Nhà Cung Cấp" readonly="1"/>
+                                        <field name="cost" string="💰 Chi Phí" readonly="1"/>
+                                        <field name="next_maintenance" string="📅 Lịch Bảo Trì Tiếp Theo" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>
                             <page string="📅 Lịch Trình">
                                 <field name="lich_trinh_ids">
-                                    <tree editable="bottom">
-                                        <field name="schedule_id" string="🆔 Mã Lịch Trình"/>
-                                        <field name="start_time" string="⏰ Xuất Phát"/>
-                                        <field name="end_time" string="🏁 Kết Thúc"/>
-                                        <field name="start_location" string="📍 Điểm Xuất Phát"/>
-                                        <field name="end_location" string="📌 Đích Đến"/>
-                                        <field name="driver_id" string="👨‍✈️ Tài Xế"/>
-                                        <field name="status" string="📊 Trạng Thái"/>
+                                    <tree editable="false" delete="false" create="false">
+                                        <field name="schedule_id" string="🆔 Mã Lịch Trình" readonly="1"/>
+                                        <field name="start_time" string="⏰ Xuất Phát" readonly="1"/>
+                                        <field name="end_time" string="🏁 Kết Thúc" readonly="1"/>
+                                        <field name="start_location" string="📍 Điểm Xuất Phát" readonly="1"/>
+                                        <field name="end_location" string="📌 Đích Đến" readonly="1"/>
+                                        <field name="driver_id" string="👨‍✈️ Tài Xế" readonly="1"/>
+                                        <field name="status" string="📊 Trạng Thái" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -110,6 +110,19 @@
                                         <field name="rental_days" string="📆 Số Ngày Thuê"/>
                                         <field name="total_price" string="💰 Tổng Tiền"/>
                                         <field name="status" string="📌 Trạng Thái"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="📅 Lịch Trình Đã Hoàn Thành">
+                                <field name="completed_schedule_ids">
+                                    <tree editable="bottom">
+                                        <field name="schedule_id" string="🆔 Mã Lịch Trình"/>
+                                        <field name="start_time" string="⏰ Xuất Phát"/>
+                                        <field name="end_time" string="🏁 Kết Thúc"/>
+                                        <field name="start_location" string="📍 Điểm Xuất Phát"/>
+                                        <field name="end_location" string="📌 Đích Đến"/>
+                                        <field name="driver_id" string="👨‍✈️ Tài Xế"/>
+                                        <field name="status" string="📊 Trạng Thái"/>
                                     </tree>
                                 </field>
                             </page>
