@@ -83,4 +83,48 @@ class HopDongBaoHiem(models.Model):
         """ Gán mã hợp đồng tự động nếu chưa có """
         if 'contract_id' not in vals or not vals['contract_id']:
             vals['contract_id'] = self._generate_contract_id()
-        return super(HopDongBaoHiem, self).create(vals)
+        
+        # Tạo bản ghi mới
+        new_contract = super(HopDongBaoHiem, self).create(vals)
+
+        # Ghi lại thao tác vào lịch sử
+        self.env['lich_su_thao_tac'].create({
+            'model_name': 'hop_dong_bao_hiem',
+            'record_id': new_contract.id,
+            'action_type': 'create',
+            'action_details': f"Thêm hợp đồng bảo hiểm mới: {new_contract.contract_id}",
+            'user_id': self.env.user.id,
+            'action_date': fields.Datetime.now(),
+        })
+
+        return new_contract
+
+    def write(self, vals):
+        """ Ghi lại thao tác sửa hợp đồng vào lịch sử """
+        result = super(HopDongBaoHiem, self).write(vals)
+
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'hop_dong_bao_hiem',
+                'record_id': record.id,
+                'action_type': 'update',
+                'action_details': f"Cập nhật hợp đồng bảo hiểm: {record.contract_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return result
+
+    def unlink(self):
+        """ Ghi lại thao tác xóa hợp đồng vào lịch sử """
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'hop_dong_bao_hiem',
+                'record_id': record.id,
+                'action_type': 'delete',
+                'action_details': f"Xóa hợp đồng bảo hiểm: {record.contract_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return super(HopDongBaoHiem, self).unlink()

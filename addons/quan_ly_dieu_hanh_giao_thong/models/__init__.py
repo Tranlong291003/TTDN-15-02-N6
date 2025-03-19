@@ -13,3 +13,4 @@ from . import cong_ty_bao_hiem
 from . import nha_cung_cap_bao_tri  
 from . import thue_xe  
 from . import report_tong_hop
+from . import lich_su_thao_tac

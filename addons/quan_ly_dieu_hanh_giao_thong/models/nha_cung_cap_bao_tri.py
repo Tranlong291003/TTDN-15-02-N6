@@ -38,7 +38,48 @@ class NhaCungCapBaoTri(models.Model):
 
     @api.model
     def create(self, vals):
-        """ Gán mã nhà cung cấp tự động nếu chưa có """
-        if 'supplier_id' not in vals or not vals['supplier_id']:
-            vals['supplier_id'] = self._generate_supplier_id()
-        return super(NhaCungCapBaoTri, self).create(vals)
+        """ Kiểm tra điều kiện trước khi tạo nhà cung cấp bảo trì """
+        new_record = super(NhaCungCapBaoTri, self).create(vals)
+
+        # Ghi lại thao tác vào lịch sử
+        self.env['lich_su_thao_tac'].create({
+            'model_name': 'nha_cung_cap_bao_tri',
+            'record_id': new_record.id,
+            'action_type': 'create',
+            'action_details': f"Thêm nhà cung cấp bảo trì: {new_record.name} (Mã nhà cung cấp: {new_record.supplier_id})",
+            'user_id': self.env.user.id,
+            'action_date': fields.Datetime.now(),
+        })
+
+        return new_record
+
+    def write(self, vals):
+        """ Ghi lại thao tác sửa nhà cung cấp bảo trì vào lịch sử """
+        result = super(NhaCungCapBaoTri, self).write(vals)
+
+        # Ghi lại thao tác sửa vào lịch sử
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'nha_cung_cap_bao_tri',
+                'record_id': record.id,
+                'action_type': 'update',
+                'action_details': f"Cập nhật nhà cung cấp bảo trì: {record.name} (Mã nhà cung cấp: {record.supplier_id})",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return result
+
+    def unlink(self):
+        """ Ghi lại thao tác xóa nhà cung cấp bảo trì vào lịch sử """
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'nha_cung_cap_bao_tri',
+                'record_id': record.id,
+                'action_type': 'delete',
+                'action_details': f"Xóa nhà cung cấp bảo trì: {record.name} (Mã nhà cung cấp: {record.supplier_id})",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return super(NhaCungCapBaoTri, self).unlink()

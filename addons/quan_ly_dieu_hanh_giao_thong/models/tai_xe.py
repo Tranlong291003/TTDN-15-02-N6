@@ -92,4 +92,48 @@ class TaiXe(models.Model):
         """ Gán mã tài xế tự động nếu chưa có """
         if 'driver_id' not in vals or not vals['driver_id']:
             vals['driver_id'] = self._generate_driver_id()
-        return super(TaiXe, self).create(vals)
+        
+        # Tạo bản ghi tài xế mới
+        new_driver = super(TaiXe, self).create(vals)
+
+        # Ghi lại thao tác vào lịch sử
+        self.env['lich_su_thao_tac'].create({
+            'model_name': 'tai_xe',
+            'record_id': new_driver.id,
+            'action_type': 'create',
+            'action_details': f"Thêm tài xế mới: {new_driver.name} (Mã tài xế: {new_driver.driver_id})",
+            'user_id': self.env.user.id,
+            'action_date': fields.Datetime.now(),
+        })
+
+        return new_driver
+
+    def write(self, vals):
+        """ Ghi lại thao tác sửa tài xế vào lịch sử """
+        result = super(TaiXe, self).write(vals)
+
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'tai_xe',
+                'record_id': record.id,
+                'action_type': 'update',
+                'action_details': f"Cập nhật tài xế: {record.name} (Mã tài xế: {record.driver_id})",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return result
+
+    def unlink(self):
+        """ Ghi lại thao tác xóa tài xế vào lịch sử """
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'tai_xe',
+                'record_id': record.id,
+                'action_type': 'delete',
+                'action_details': f"Xóa tài xế: {record.name} (Mã tài xế: {record.driver_id})",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return super(TaiXe, self).unlink()

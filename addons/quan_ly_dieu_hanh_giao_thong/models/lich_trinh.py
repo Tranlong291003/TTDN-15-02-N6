@@ -96,17 +96,53 @@ class LichTrinh(models.Model):
             new_id = "LT001"  # Nếu chưa có bản ghi nào thì bắt đầu từ 001
         return new_id
 
+
     @api.model
     def create(self, vals):
-        """ ✅ Kiểm tra điều kiện trước khi tạo lịch trình chỉ khi lần đầu """
-        if 'schedule_id' not in vals or not vals['schedule_id']:
-            vals['schedule_id'] = self._generate_schedule_id()  # Chỉ tạo mã lịch trình khi lần đầu tạo
-        new_record = super(LichTrinh, self).create(vals)
-        new_record._check_schedule_dates()
-        return new_record
+        # Tạo lịch trình mới
+        new_schedule = super(LichTrinh, self).create(vals)
 
+        # Ghi lại thao tác vào lịch sử
+        self.env['lich_su_thao_tac'].create({
+            'model_name': 'lich_trinh',
+            'record_id': new_schedule.id,
+            'action_type': 'create',
+            'action_details': f"Thêm lịch trình mới: {new_schedule.schedule_id}",
+            'user_id': self.env.user.id,
+            'action_date': fields.Datetime.now(),
+        })
+
+        return new_schedule
+
+    # Phương thức cập nhật lịch trình
     def write(self, vals):
-        """ ✅ Kiểm tra điều kiện khi chỉnh sửa lịch trình """
+        # Cập nhật lịch trình
         result = super(LichTrinh, self).write(vals)
-        self._check_schedule_dates()
+
+        # Ghi lại thao tác sửa lịch trình vào lịch sử
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'lich_trinh',
+                'record_id': record.id,
+                'action_type': 'update',
+                'action_details': f"Cập nhật lịch trình: {record.schedule_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
         return result
+
+    # Phương thức xóa lịch trình
+    def unlink(self):
+        # Ghi lại thao tác vào lịch sử khi xóa lịch trình
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'lich_trinh',
+                'record_id': record.id,
+                'action_type': 'delete',
+                'action_details': f"Xóa lịch trình: {record.schedule_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return super(LichTrinh, self).unlink()

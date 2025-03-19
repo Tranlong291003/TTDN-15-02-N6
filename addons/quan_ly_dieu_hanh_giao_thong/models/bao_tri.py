@@ -13,7 +13,6 @@ class BaoTri(models.Model):
         index=True, 
         default=lambda self: self._generate_maintenance_id()
     )
-    daily_rental_rate = fields.Float(string="💵 Giá Thuê/Ngày", required=True)
     rental_status = fields.Selection([
         ('available', '✅ Có Sẵn'),
         ('rented', '🚗 Đang Thuê'),
@@ -70,4 +69,48 @@ class BaoTri(models.Model):
         """ Gán mã bảo trì tự động nếu chưa có """
         if 'maintenance_id' not in vals or not vals['maintenance_id']:
             vals['maintenance_id'] = self._generate_maintenance_id()
-        return super(BaoTri, self).create(vals)
+        
+        # Tạo bản ghi mới
+        new_maintenance = super(BaoTri, self).create(vals)
+
+        # Ghi lại thao tác vào lịch sử
+        self.env['lich_su_thao_tac'].create({
+            'model_name': 'bao_tri',
+            'record_id': new_maintenance.id,
+            'action_type': 'create',
+            'action_details': f"Thêm bảo trì mới: {new_maintenance.maintenance_id}",
+            'user_id': self.env.user.id,
+            'action_date': fields.Datetime.now(),
+        })
+
+        return new_maintenance
+
+    def write(self, vals):
+        """ Ghi lại thao tác sửa bảo trì vào lịch sử """
+        result = super(BaoTri, self).write(vals)
+
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'bao_tri',
+                'record_id': record.id,
+                'action_type': 'update',
+                'action_details': f"Cập nhật bảo trì: {record.maintenance_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return result
+
+    def unlink(self):
+        """ Ghi lại thao tác xóa bảo trì vào lịch sử """
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'bao_tri',
+                'record_id': record.id,
+                'action_type': 'delete',
+                'action_details': f"Xóa bảo trì: {record.maintenance_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return super(BaoTri, self).unlink()

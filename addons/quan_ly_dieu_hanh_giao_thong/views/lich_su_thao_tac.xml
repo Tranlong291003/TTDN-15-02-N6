@@ -1,0 +1,47 @@
+<odoo>
+  <data>
+    <!-- Tree View - Hiển thị danh sách Lịch sử thao tác -->
+    <record id="view_lich_su_thao_tac_tree" model="ir.ui.view">
+      <field name="name">lich.su.thao.tac.tree</field>
+      <field name="model">lich_su_thao_tac</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="action_id" string="🆔 Mã Thao Tác"/>
+          <field name="model_name" string="Mô Hình"/>
+          <field name="record_id" string="ID Bản Ghi"/>
+          <field name="action_type" string="Loại Thao Tác"/>
+          <field name="action_details" string="Chi Tiết Thao Tác"/>
+          <field name="user_id" string="Người Thực Hiện"/>
+          <field name="action_date" string="Ngày Thực Hiện"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Form View - Hiển thị chi tiết Lịch sử thao tác -->
+    <record id="view_lich_su_thao_tac_form" model="ir.ui.view">
+      <field name="name">lich.su.thao.tac.form</field>
+      <field name="model">lich_su_thao_tac</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="action_id" string="🆔 Mã Thao Tác"/>
+              <field name="model_name" string="Mô Hình"/>
+              <field name="record_id" string="ID Bản Ghi"/>
+              <field name="action_type" string="Loại Thao Tác"/>
+              <field name="action_details" string="Chi Tiết Thao Tác"/>
+              <field name="user_id" string="Người Thực Hiện"/>
+              <field name="action_date" string="Ngày Thực Hiện"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- Action - Mở cửa sổ xem Lịch sử thao tác -->
+    <record id="action_lich_su_thao_tac" model="ir.actions.act_window">
+      <field name="name">Lịch Sử Thao Tác</field>
+      <field name="res_model">lich_su_thao_tac</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_lich_su_thao_tac_tree"/>
+    </record>
+  </data>
+</odoo>

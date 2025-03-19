@@ -47,9 +47,54 @@ class ViPham(models.Model):
             new_id = "VP001"  # Nếu chưa có bản ghi nào thì bắt đầu từ 001
         return new_id
 
+        
     @api.model
     def create(self, vals):
         """ Gán mã vi phạm tự động nếu chưa có """
         if 'violation_id' not in vals or not vals['violation_id']:
             vals['violation_id'] = self._generate_violation_id()
-        return super(ViPham, self).create(vals)
+        
+        # Tạo bản ghi vi phạm mới
+        new_violation = super(ViPham, self).create(vals)
+
+        # Ghi lại thao tác vào lịch sử
+        self.env['lich_su_thao_tac'].create({
+            'model_name': 'vi_pham',
+            'record_id': new_violation.id,
+            'action_type': 'create',
+            'action_details': f"Thêm vi phạm mới: {new_violation.violation_id}",
+            'user_id': self.env.user.id,
+            'action_date': fields.Datetime.now(),
+        })
+
+        return new_violation
+
+    def write(self, vals):
+        """ Ghi lại thao tác sửa vi phạm vào lịch sử """
+        result = super(ViPham, self).write(vals)
+
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'vi_pham',
+                'record_id': record.id,
+                'action_type': 'update',
+                'action_details': f"Cập nhật vi phạm: {record.violation_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return result
+
+    def unlink(self):
+        """ Ghi lại thao tác xóa vi phạm vào lịch sử """
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'vi_pham',
+                'record_id': record.id,
+                'action_type': 'delete',
+                'action_details': f"Xóa vi phạm: {record.violation_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return super(ViPham, self).unlink()

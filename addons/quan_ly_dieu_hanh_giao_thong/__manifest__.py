@@ -25,6 +25,8 @@
         'views/nha_cung_cap_bao_tri.xml',
         'views/thue_xe.xml',
         'views/report_tong_hop.xml',
+        'views/lich_su_thao_tac.xml',
+
 
 
 

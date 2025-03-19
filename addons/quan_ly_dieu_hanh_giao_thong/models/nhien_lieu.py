@@ -110,4 +110,44 @@ class NhienLieu(models.Model):
         if vehicle and new_km > old_mileage:
             vehicle.mileage = new_km
 
+        # Ghi lại thao tác vào lịch sử
+        self.env['lich_su_thao_tac'].create({
+            'model_name': 'nhien_lieu',
+            'record_id': record.id,
+            'action_type': 'create',
+            'action_details': f"Thêm bản ghi đổ nhiên liệu: {record.fuel_id}",
+            'user_id': self.env.user.id,
+            'action_date': fields.Datetime.now(),
+        })
+
         return record
+
+    def write(self, vals):
+        """ Ghi lại thao tác sửa bản ghi đổ xăng vào lịch sử """
+        result = super(NhienLieu, self).write(vals)
+
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'nhien_lieu',
+                'record_id': record.id,
+                'action_type': 'update',
+                'action_details': f"Cập nhật bản ghi đổ nhiên liệu: {record.fuel_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return result
+
+    def unlink(self):
+        """ Ghi lại thao tác xóa bản ghi đổ xăng vào lịch sử """
+        for record in self:
+            self.env['lich_su_thao_tac'].create({
+                'model_name': 'nhien_lieu',
+                'record_id': record.id,
+                'action_type': 'delete',
+                'action_details': f"Xóa bản ghi đổ nhiên liệu: {record.fuel_id}",
+                'user_id': self.env.user.id,
+                'action_date': fields.Datetime.now(),
+            })
+
+        return super(NhienLieu, self).unlink()
