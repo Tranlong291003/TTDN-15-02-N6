@@ -34,7 +34,7 @@
                                 <field name="driver_id" readonly="1"/>
                                 <field name="name"/>
                                 <field name="license_number" string="🚘 Bằng Lái"/>
-                                <field name="dob" string="Ngày sinh"/>
+                                <field name="dob" />
                             </group>
                             <group>
                                 <field name="phone"/>

@@ -14,7 +14,7 @@
                     <field name="insurance_package" string="📜 Gói Bảo Hiểm"/>
                     <field name="contract_start" string="📅 Ngày Bắt Đầu"/>
                     <field name="contract_end" string="📅 Ngày Kết Thúc"/>
-                    <field name="insurance_price" string="💰 Giá Bảo Hiểm"/>
+                    <field name="insurance_price" string="💰 Giá Bảo Hiểm" widget="float" options="{'precision': 0}"/>
                 </tree>
             </field>
         </record>

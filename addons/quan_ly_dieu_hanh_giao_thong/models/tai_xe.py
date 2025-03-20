@@ -14,67 +14,67 @@ class TaiXe(models.Model):
         default=lambda self: self._generate_driver_id()
     )
     
-    phuong_tien_ids = fields.One2many('phuong_tien', 'driver_id', string="Quản lý phương tiện")
+    phuong_tien_ids = fields.One2many('phuong_tien', 'driver_id', string="🚗 Quản lý phương tiện")
 
     # Gộp firstName và lastName thành name
     name = fields.Char(string='👤 Tên tài xế', required=True)
     
     # Các trường còn lại
-    dob = fields.Date(string='Ngày sinh', required=True)
-    license_number = fields.Char(string='Số giấy phép lái xe', required=True, unique=True)
+    dob = fields.Date(string='🎂 Ngày sinh', required=True)
+    license_number = fields.Char(string='📄 Số giấy phép lái xe', required=True, unique=True)
     
-    phone = fields.Char(string='Số điện thoại')
-    email = fields.Char(string='Email')
+    phone = fields.Char(string='📞 Số điện thoại')
+    email = fields.Char(string='📧 Email')
 
     # Kinh nghiệm lái xe (Selection) - Thêm lựa chọn logic cho khoảng thời gian kinh nghiệm
     experience = fields.Selection(
-        [('0', '<1 năm'), 
-         ('1-2', '1-2 năm'),
-         ('2-3', '2-3 năm'),
-         ('3+', '3 năm trở lên')],
+        [('0', '🕒 <1 năm'), 
+         ('1-2', '🕓 1-2 năm'),
+         ('2-3', '🕔 2-3 năm'),
+         ('3+', '🕙 3 năm trở lên')],
         string='🏎️ Kinh nghiệm',
         required=True
     )
 
     # Đánh giá tài xế (Selection)
     rating = fields.Selection(
-        [('1', '1 ⭐'),
-         ('2', '2 ⭐'),
-         ('3', '3 ⭐'),
-         ('4', '4 ⭐'),
-         ('5', '5 ⭐')],
+        [('1', '⭐ 1 sao'),
+         ('2', '⭐⭐ 2 sao'),
+         ('3', '⭐⭐⭐ 3 sao'),
+         ('4', '⭐⭐⭐⭐ 4 sao'),
+         ('5', '⭐⭐⭐⭐⭐ 5 sao')],
         string='⭐ Đánh Giá',
         required=True
     )
 
-    image = fields.Binary(string='Ảnh tài xế')
+    image = fields.Binary(string='🖼️ Ảnh tài xế')
 
     # Liên kết với phương tiện
-    vehicle_id = fields.Many2one('phuong_tien', string='Phương tiện phụ trách')
+    vehicle_id = fields.Many2one('phuong_tien', string='🚗 Phương tiện phụ trách')
 
     # Thêm trường ngày tạo và ngày cập nhật
     created_at = fields.Datetime(
-        string='Ngày tạo tài xế', 
+        string='🗓️ Ngày tạo tài xế', 
         default=fields.Datetime.now, 
         readonly=True
     )
     
     updated_at = fields.Datetime(
-        string='Ngày cập nhật tài xế', 
+        string='🕓 Ngày cập nhật tài xế', 
         default=fields.Datetime.now, 
         track_visibility='onchange'
     )
 
     # Trạng thái tài xế
-    status = fields.Selection([
-        ('active', 'Đang làm việc'),
-        ('onLeave', 'Nghỉ phép'),
-        ('retired', 'Đã nghỉ việc')
-    ], string='Trạng thái', default='active')
+    status = fields.Selection([ 
+        ('active', '✅ Đang làm việc'),
+        ('onLeave', '🌴 Nghỉ phép'),
+        ('retired', '⚰️ Đã nghỉ việc')
+    ], string='🛑 Trạng thái', default='active')
 
     _sql_constraints = [
         ('driver_id_uniq', 'unique(driver_id)', '🆔 Mã Tài Xế không được trùng! Vui lòng nhập lại.'),
-        ('license_number_uniq', 'unique(license_number)', 'Số giấy phép lái xe không được trùng!')
+        ('license_number_uniq', 'unique(license_number)', '📄 Số giấy phép lái xe không được trùng!')
     ]
 
     def _generate_driver_id(self):

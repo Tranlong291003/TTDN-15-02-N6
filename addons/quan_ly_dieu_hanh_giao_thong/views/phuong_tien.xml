@@ -26,8 +26,7 @@
                         <!-- Thông tin phương tiện -->
                         <group col="2" string="Thông tin phương tiện">
                             <group>
-                                <field name="color" string="🎨 Màu Sắc"/>
-                                <field name="engine_capacity" string="🔋 Dung Tích Động Cơ"/>
+                                <field name="engine_capacity" string="🔋 Trọng Lượng"/>
                                 <field name="created_at" string="📅 Ngày Tạo" readonly="1"/>
                                 <field name="image" widget="image" class="oe_center" style="width: 200px; height: auto;"/>
                             </group>
@@ -39,18 +38,7 @@
                         </group>
                         <!-- Tabs: Bảo trì, Lịch trình, Nhiên liệu, Hợp đồng bảo hiểm, Vi phạm giao thông, Hợp đồng thuê xe -->
                         <notebook>
-                            <page string="🛠️ Bảo Trì">
-                                <field name="bao_tri_ids">
-                                    <tree editable="false">
-                                        <field name="maintenance_date" string="📅 Ngày Bảo Trì" readonly="1"/>
-                                        <field name="maintenance_type" string="📑 Loại Bảo Trì" readonly="1"/>
-                                        <field name="service_provider_id" string="🏢 Nhà Cung Cấp" readonly="1"/>
-                                        <field name="cost" string="💰 Chi Phí" readonly="1"/>
-                                        <field name="next_maintenance" string="📅 Lịch Bảo Trì Tiếp Theo" readonly="1"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="📅 Lịch Trình Đã Hoàn Thành">
+                            <page string="📅 Lịch Trình">
                                 <field name="pending_in_progress_schedule_ids">
                                     <tree editable="bottom">
                                         <field name="schedule_id" string="🆔 Mã Lịch Trình"/>
@@ -63,57 +51,7 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page string="⛽ Nhiên Liệu">
-                                <field name="nhien_lieu_ids">
-                                    <tree editable="bottom">
-                                        <field name="date" string="📅 Ngày Đổ Nhiên Liệu"/>
-                                        <field name="fuel_price" string="💰 Giá Nhiên Liệu"/>
-                                        <field name="fuel_liters" string="⛽ Số Lít"/>
-                                        <field name="current_km" string="📏 Số Km Hiện Tại"/>
-                                        <field name="fuel_efficiency" string="⚡ Tiêu Hao (lít/km)"/>
-                                        <field name="estimated_range" string="📏 Số Km dự kiến đổ lại"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="📜 Hợp Đồng Bảo Hiểm">
-                                <field name="hop_dong_bao_hiem_ids">
-                                    <tree editable="bottom">
-                                        <field name="contract_id" string="🆔 Mã Hợp Đồng"/>
-                                        <field name="insurance_package_id" string="📜 Gói Bảo Hiểm"/>
-                                        <field name="contract_start" string="📅 Ngày Bắt Đầu"/>
-                                        <field name="contract_end" string="📅 Ngày Kết Thúc"/>
-                                        <field name="insurance_price" string="💰 Giá Bảo Hiểm"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="⚠️ Vi Phạm Giao Thông">
-                                <field name="vi_pham_ids">
-                                    <tree editable="bottom">
-                                        <field name="violation_id" string="🆔 Mã Vi Phạm"/>
-                                        <field name="driver_id" string="👤 Tài Xế"/>
-                                        <field name="vehicle_id" string="🚗 Phương Tiện"/>
-                                        <field name="violation_type" string="⚠️ Loại Vi Phạm"/>
-                                        <field name="violation_date" string="📅 Ngày Vi Phạm"/>
-                                        <field name="fine_amount" string="💰 Số Tiền Phạt"/>
-                                        <field name="status" string="📌 Trạng Thái"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="📊 Hợp đồng thuê xe">
-                                <field name="thue_xe_ids">
-                                    <tree editable="bottom">
-                                        <field name="rental_id" string="🆔 Mã Thuê Xe"/>
-                                        <field name="customer_name" string="👤 Tên Khách Hàng"/>
-                                        <field name="customer_phone" string="📞 SĐT Khách Hàng"/>
-                                        <field name="rental_start" string="📅 Ngày Bắt Đầu"/>
-                                        <field name="rental_end" string="🏁 Ngày Kết Thúc"/>
-                                        <field name="rental_days" string="📆 Số Ngày Thuê"/>
-                                        <field name="total_price" string="💰 Tổng Tiền"/>
-                                        <field name="status" string="📌 Trạng Thái"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="📅 Lịch Trình Đã Hoàn Thành">
+                            <page string="📅 Lịch sử lịch trình">
                                 <field name="completed_schedule_ids">
                                     <tree editable="bottom">
                                         <field name="schedule_id" string="🆔 Mã Lịch Trình"/>
@@ -123,6 +61,54 @@
                                         <field name="end_location" string="📌 Đích Đến"/>
                                         <field name="driver_id" string="👨‍✈️ Tài Xế"/>
                                         <field name="status" string="📊 Trạng Thái"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="🛠️ Bảo Trì">
+                                <field name="bao_tri_ids">
+                                    <tree editable="false" create="false" delete="false">
+                                        <field name="maintenance_id" string="🆔 Mã Bảo Trì" readonly="1"/>
+                                        <field name="maintenance_date" string="📅 Ngày Bảo Trì" readonly="1"/>
+                                        <field name="maintenance_type" string="📑 Loại Bảo Trì" readonly="1"/>
+                                        <field name="service_provider_id" string="🏢 Nhà Cung Cấp" readonly="1"/>
+                                        <field name="cost" string="💰 Chi Phí" readonly="1"/>
+                                        <field name="next_maintenance" string="📅 Lịch Bảo Trì Tiếp Theo" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="⛽ Nhiên Liệu">
+                                <field name="nhien_lieu_ids">
+                                    <tree editable="false" create="false" delete="false">
+                                        <field name="date" string="📅 Ngày Đổ Nhiên Liệu" readonly="1"/>
+                                        <field name="fuel_price" string="💰 Giá Nhiên Liệu" readonly="1"/>
+                                        <field name="fuel_liters" string="⛽ Số Lít" readonly="1"/>
+                                        <field name="current_km" string="📏 Số Km Hiện Tại" readonly="1"/>
+                                        <field name="fuel_efficiency" string="⚡ Tiêu Hao (lít/km)" readonly="1"/>
+                                        <field name="estimated_range" string="📏 Số Km dự kiến đổ lại" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="📜 Hợp Đồng Bảo Hiểm">
+                                <field name="hop_dong_bao_hiem_ids">
+                                    <tree editable="false" create="false" delete="false">
+                                        <field name="contract_id" string="🆔 Mã Hợp Đồng" readonly="1"/>
+                                        <field name="insurance_package_id" string="📜 Gói Bảo Hiểm" readonly="1"/>
+                                        <field name="contract_start" string="📅 Ngày Bắt Đầu" readonly="1"/>
+                                        <field name="contract_end" string="📅 Ngày Kết Thúc" readonly="1"/>
+                                        <field name="insurance_price" string="💰 Giá Bảo Hiểm" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="⚠️ Vi Phạm Giao Thông">
+                                <field name="vi_pham_ids">
+                                    <tree editable="false" create="false" delete="false">
+                                        <field name="violation_id" string="🆔 Mã Vi Phạm" readonly="1"/>
+                                        <field name="driver_id" string="👤 Tài Xế" readonly="1"/>
+                                        <field name="vehicle_id" string="🚗 Phương Tiện" readonly="1"/>
+                                        <field name="violation_type" string="⚠️ Loại Vi Phạm" readonly="1"/>
+                                        <field name="violation_date" string="📅 Ngày Vi Phạm" readonly="1"/>
+                                        <field name="fine_amount" string="💰 Số Tiền Phạt" readonly="1"/>
+                                        <field name="status" string="📌 Trạng Thái" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -139,13 +125,13 @@
                 <tree decoration-success="status == 'available'" 
                       decoration-danger="status == 'broken'" 
                       decoration-warning="status == 'maintenance'">
-                    <field name="vehicle_id" string="🆔 Mã phương tiện" />
-                    <field name="name" string="🚗 Phương Tiện"/>
-                    <field name="manufacturer_id" string="🏭 Hãng Sản Xuất"/>
-                    <field name="vehicle_type" string="🚘 Loại Xe" widget="badge"/>
-                    <field name="license_plate" string="🏷 Biển Số"/>
-                    <field name="mileage" string="📏 Số Km" align="left"/>
-                    <field name="status" string="📌 Trạng Thái" widget="statusbar" options="{'clickable': '1'}"/>
+                    <field name="vehicle_id" string="🆔 Mã phương tiện" readonly="1"/>
+                    <field name="name" string="🚗 Phương Tiện" readonly="1"/>
+                    <field name="manufacturer_id" string="🏭 Hãng Sản Xuất" readonly="1"/>
+                    <field name="vehicle_type" string="🚘 Loại Xe" widget="badge" readonly="1"/>
+                    <field name="license_plate" string="🏷 Biển Số" readonly="1"/>
+                    <field name="mileage" string="📏 Số Km" align="left" readonly="1"/>
+                    <field name="status" string="📌 Trạng Thái" readonly="1" widget="statusbar" options="{'clickable': '1'}"/>
                 </tree>
             </field>
         </record>

@@ -27,7 +27,6 @@ class PhuongTien(models.Model):
         ('available', 'Sẵn sàng'),
         ('in_use', 'Đang sử dụng'),
         ('maintenance', 'Bảo trì'),
-        ('broken', 'Hỏng hóc')
     ], string='📌 Trạng Thái', default='available')
 
     currency_id = fields.Many2one(
@@ -42,37 +41,27 @@ class PhuongTien(models.Model):
         currency_field='currency_id'
     )
     
-    mileage = fields.Float(string='📏 Số km đã đi')
+    mileage = fields.Float(string='📏 Số km đã đi', digits=(12, 0))
 
     manufacturer_id = fields.Many2one('hang_san_xuat', string='🏭 Hãng sản xuất', required=True)
     manufacturer_name = fields.Char(related='manufacturer_id.name', string='Tên hãng sản xuất', store=True, readonly=True)
 
-    image = fields.Binary(string='🖼 Hình ảnh phương tiện')
+    image = fields.Binary(string='🖼 Hình ảnh PT')
 
-    color = fields.Selection(
-        [
-            ('red', 'Đỏ'),
-            ('blue', 'Xanh dương'),
-            ('green', 'Xanh lá'),
-            ('black', 'Đen'),
-            ('white', 'Trắng'),
-            ('yellow', 'Vàng'),
-        ],
-        string='🎨 Màu sắc phương tiện', 
-        required=True
-    )
+    
     
     engine_capacity = fields.Selection(
-        [
-            ('1000', '1.0L'),
-            ('1500', '1.5L'),
-            ('2000', '2.0L'),
-            ('2500', '2.5L'),
-            ('3000', '3.0L'),
-        ],
-        string="🔋 Dung tích động cơ (CC)",
-        required=True
-    )
+    [
+        ('1', '1 Tấn'),
+        ('1.5', '1.5 Tấn'),
+        ('2', '2 Tấn'),
+        ('2.5', '2.5 Tấn'),
+        ('3', '3 Tấn'),
+    ],
+    string="🔋 Trọng Lượng",
+
+)
+
 
     seats = fields.Selection(
         [
@@ -85,7 +74,6 @@ class PhuongTien(models.Model):
             ('50', '50 chỗ'),
         ],
         string="🪑 Số chỗ ngồi", 
-        required=True
     )
 
     created_at = fields.Datetime(

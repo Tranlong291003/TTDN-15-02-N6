@@ -13,12 +13,13 @@ class BaoTri(models.Model):
         index=True, 
         default=lambda self: self._generate_maintenance_id()
     )
-    rental_status = fields.Selection([
+    rental_status = fields.Selection([ 
         ('available', '✅ Có Sẵn'),
         ('rented', '🚗 Đang Thuê'),
         ('maintenance', '🛠️ Bảo Trì'),
         ('reserved', '🔒 Đã Đặt Trước')
     ], string="📌 Trạng Thái Thuê", default='available')
+    
     vehicle_id = fields.Many2one('phuong_tien', string='🚗 Phương Tiện', required=True)
     maintenance_date = fields.Date(string='📅 Ngày Bảo Trì', required=True, default=fields.Date.today)
     maintenance_type = fields.Selection([
@@ -28,7 +29,9 @@ class BaoTri(models.Model):
 
     details = fields.Text(string='📄 Chi Tiết Sửa Chữa')
     service_provider_id = fields.Many2one('nha_cung_cap_bao_tri', string='🏢 Nhà Cung Cấp Dịch Vụ', required=True)
-    cost = fields.Float(string='💰 Chi Phí Bảo Trì')
+    
+    # Trường cost sẽ được nhập bình thường, không có tính toán thêm
+    cost = fields.Float(string='💰 Chi Phí Bảo Trì (VND)', digits=(12, 0), required=True)  # Giá trị nhập vào (hiển thị VND)
 
     next_maintenance = fields.Date(string='📅 Lịch Bảo Trì Tiếp Theo', compute='_compute_next_maintenance', store=True)
 
@@ -42,7 +45,6 @@ class BaoTri(models.Model):
     vehicle_status = fields.Selection(related='vehicle_id.status', store=True, string="Trạng Thái")
     vehicle_manufacturer = fields.Many2one(related='vehicle_id.manufacturer_id', store=True, string="Hãng Sản Xuất")
     vehicle_mileage = fields.Float(related='vehicle_id.mileage', store=True, string="Số Km Đã Đi")
-
 
     @api.depends('maintenance_date')
     def _compute_next_maintenance(self):

@@ -35,7 +35,8 @@ class HopDongBaoHiem(models.Model):
         string='💰 Số Tiền Bảo Hiểm',
         related='insurance_package_id.insurance_price',
         store=True,
-        readonly=True
+        readonly=True,
+        digits=(12, 0)
     )
 
     _sql_constraints = [

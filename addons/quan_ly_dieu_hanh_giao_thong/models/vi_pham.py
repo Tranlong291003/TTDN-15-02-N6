@@ -26,11 +26,11 @@ class ViPham(models.Model):
         ('lights_off', 'Không bật đèn')
     ], string='Loại vi phạm', required=True)
     violation_date = fields.Date(string='Ngày vi phạm', required=True)
-    fine_amount = fields.Float(string='Số tiền phạt')
+    fine_amount = fields.Float(string='Số tiền phạt', digits=(12, 0), required=True )
     status = fields.Selection([
         ('pending', 'Chưa đóng phạt'),
         ('paid', 'Đã đóng phạt')
-    ], string='Trạng thái', default='pending')
+    ], string='Trạng thái', default='pending', required=True)
 
     _sql_constraints = [
         ('violation_id_uniq', 'unique(violation_id)', '🆔 Mã Vi Phạm không được trùng! Vui lòng nhập lại.')
