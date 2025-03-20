@@ -106,6 +106,13 @@ class PhuongTien(models.Model):
     nhien_lieu_ids = fields.One2many('nhien_lieu', 'vehicle_id', string="⛽ Lịch Sử Đổ Nhiên Liệu")
     hop_dong_bao_hiem_ids = fields.One2many('hop_dong_bao_hiem', 'vehicle_id', string="📜 Hợp Đồng Bảo Hiểm")
     vi_pham_ids = fields.One2many('vi_pham', 'vehicle_id', string="⚠️ Vi phạm")
+    pending_in_progress_schedule_ids = fields.One2many(
+        'lich_trinh', 
+        'vehicle_id', 
+        string="Lịch Trình Đang Xử Lý và Chưa Bắt Đầu", 
+        compute="_compute_pending_in_progress_schedules", 
+        store=True
+    )
 
     completed_schedule_ids = fields.One2many(
         'lich_trinh', 
@@ -167,6 +174,17 @@ class PhuongTien(models.Model):
             # Lọc các lịch trình có trạng thái "completed"
             completed_schedules = self.env['lich_trinh'].search([('status', '=', 'completed'), ('vehicle_id', '=', record.id)])
             record.completed_schedule_ids = completed_schedules
+    @api.depends('lich_trinh_ids.status')
+    def _compute_pending_in_progress_schedules(self):
+        for record in self:
+        # Lọc các lịch trình có trạng thái "pending" hoặc "in_progress"
+            pending_in_progress_schedules = self.env['lich_trinh'].search([
+            ('status', 'in', ['pending', 'in_progress']),
+            ('vehicle_id', '=', record.id)
+        ])
+        # Gán kết quả cho trường completed_schedule_ids (hoặc tạo trường riêng cho pending và in_progress)
+        record.pending_in_progress_schedule_ids = pending_in_progress_schedules
+
     @api.model
     def create(self, vals):
         """ Ghi lại thao tác tạo phương tiện vào lịch sử """
