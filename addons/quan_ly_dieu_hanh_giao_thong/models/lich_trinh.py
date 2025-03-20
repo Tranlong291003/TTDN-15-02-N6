@@ -121,6 +121,12 @@ class LichTrinh(models.Model):
 
         # Ghi lại thao tác sửa lịch trình vào lịch sử
         for record in self:
+
+            if 'updated_at' not in vals:
+              # Cập nhật trường 'updated_at' mà không gọi lại 'write'
+                record.updated_at = fields.Datetime.now()
+
+
             self.env['lich_su_thao_tac'].create({
                 'model_name': 'lich_trinh',
                 'record_id': record.id,
