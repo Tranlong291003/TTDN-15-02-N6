@@ -5,6 +5,11 @@
 
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+# Một số hình ảnh giao diện
+![Screenshot 2025-03-20 163304](https://github.com/user-attachments/assets/f6c144e9-efce-4eaa-8a57-3dfd71a5f508)
+![Screenshot 2025-03-20 163456](https://github.com/user-attachments/assets/3c02da43-11b6-4ffe-9b16-6c8ac2cf845c)
+![Screenshot 2025-03-20 163515](https://github.com/user-attachments/assets/ea286bf8-7df7-4c2e-946b-a264947e7f72)
+
 
 
 
